@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class EstudianteDTOResponse {
+
+public class DocenteDTOResponse {
 
     private String nombre;
 
@@ -19,6 +22,7 @@ public class EstudianteDTOResponse {
 
     private String email;
 
-    private int cohorte;
+    private String legajo;
 
+    private LocalDate fechaIngreso;
 }

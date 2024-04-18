@@ -1,4 +1,4 @@
-package com.equipo6.aulasUnla.dtos.response;
+package com.equipo6.aulasUnla.dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class EstudianteDTOResponse {
+
+public class DocenteDTORequest {
+
+    private int id;
 
     private String nombre;
 
@@ -18,7 +21,5 @@ public class EstudianteDTOResponse {
     private String dni;
 
     private String email;
-
-    private int cohorte;
 
 }
