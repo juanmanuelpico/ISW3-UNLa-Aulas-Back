@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 
 @Table(name="profesor")
-@PrimaryKeyJoinColumn(name = "id_persona")
+@PrimaryKeyJoinColumn(name = "id_profesor")
 @DiscriminatorValue("profesor")
 public class Profesor extends Persona {
 

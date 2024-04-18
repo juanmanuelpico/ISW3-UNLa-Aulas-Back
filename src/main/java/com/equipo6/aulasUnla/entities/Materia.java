@@ -43,9 +43,9 @@ public class Materia {
     @JoinColumn(name = "id_aula")
     private Aula aula;
 
-    @ManyToMany(mappedBy = "materias")
+    @ManyToMany
+    @JoinTable(name = "materia_tiene_estudiante", joinColumns = @JoinColumn(name = "id_materia"),
+            inverseJoinColumns = @JoinColumn(name = "id_estudiante"))
     private Set<Estudiante> estudiantes = new HashSet<>();
-
-
 
 }
