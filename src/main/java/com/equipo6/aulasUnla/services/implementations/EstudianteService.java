@@ -1,6 +1,7 @@
 package com.equipo6.aulasUnla.services.implementations;
 
 import com.equipo6.aulasUnla.dtos.request.EstudianteDTORequest;
+import com.equipo6.aulasUnla.dtos.response.EstudianteDTOResponse;
 import com.equipo6.aulasUnla.entities.Estudiante;
 import com.equipo6.aulasUnla.repositories.EstudianteRepository;
 import com.equipo6.aulasUnla.services.IEstudianteService;
@@ -8,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("estudianteService")
@@ -35,7 +37,28 @@ public class EstudianteService implements IEstudianteService {
     }
 
     @Override
-    public boolean crearEstudiantes(List<EstudianteDTORequest> dtos) throws Exception {
-        return false;
+    public boolean crearEstudiantes(List<EstudianteDTORequest> dtosEstudiantes) throws Exception {
+
+        for(EstudianteDTORequest dto : dtosEstudiantes) {
+            crearEstudiante(dto);
+        }
+        return true;
+    }
+
+    @Override
+    public List<EstudianteDTOResponse> obtenerEstudiantes () throws Exception {
+
+        List<EstudianteDTOResponse> listaEstudiantesDto = new ArrayList<>();
+        List<Estudiante> listaEstudiantesEnt = estudianteRepository.findAll();
+
+        if (listaEstudiantesEnt.isEmpty()) {
+            throw new Exception("La lista de estudiantes esta vacía.");
+        }
+
+        for (Estudiante e : listaEstudiantesEnt) {
+            listaEstudiantesDto.add(modelMapper.map(e, EstudianteDTOResponse.class));
+        }
+
+        return listaEstudiantesDto;
     }
 }
