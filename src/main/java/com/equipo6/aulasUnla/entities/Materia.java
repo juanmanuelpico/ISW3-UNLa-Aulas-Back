@@ -37,7 +37,7 @@ public class Materia {
     private int anioPertenece; //se indicar entre 1ero y 5to año (esta hardcodeada entre 1 y 5)
 
     @OneToOne(mappedBy = "materia")
-    private Profesor profesor;
+    private Docente docente;
 
     @ManyToOne
     @JoinColumn(name = "id_aula")
