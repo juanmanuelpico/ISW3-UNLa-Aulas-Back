@@ -65,6 +65,8 @@ public class MateriaService implements IMateriaService {
 
        //se agrega ese estudiante a la materia
        materiaE.getEstudiantes().add(estudiante);
+       //se setea el valor de la cantidad de estudiantes
+       materiaE.setCantEstudiantes(materiaE.getEstudiantes().size());
        materiaRepository.save(materiaE);
 
         return true;
