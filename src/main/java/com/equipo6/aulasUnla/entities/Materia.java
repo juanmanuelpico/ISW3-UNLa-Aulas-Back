@@ -37,15 +37,15 @@ public class Materia {
     private int anioPertenece; //se indicar entre 1ero y 5to año (esta hardcodeada entre 1 y 5)
 
     @OneToOne(mappedBy = "materia")
-    private Profesor profesor;
+    private Docente docente;
 
     @ManyToOne
     @JoinColumn(name = "id_aula")
     private Aula aula;
 
-    @ManyToMany(mappedBy = "materias")
+    @ManyToMany
+    @JoinTable(name = "materia_tiene_estudiante", joinColumns = @JoinColumn(name = "id_materia"),
+            inverseJoinColumns = @JoinColumn(name = "id_estudiante"))
     private Set<Estudiante> estudiantes = new HashSet<>();
-
-
 
 }

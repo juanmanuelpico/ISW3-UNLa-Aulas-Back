@@ -14,16 +14,14 @@ import java.util.Set;
 @Entity
 
 @Table(name="estudiante")
-@PrimaryKeyJoinColumn(name = "id_persona")
+@PrimaryKeyJoinColumn(name = "id_estudiante")
 @DiscriminatorValue("estudiante")
 public class Estudiante extends Persona{
 
     @Column(name = "cohorte")
     private int cohorte;
 
-    @ManyToMany
-    @JoinTable(name = "estudiante_tiene_materia", joinColumns = @JoinColumn(name = "id_estudiante"),
-            inverseJoinColumns = @JoinColumn(name = "id_tarea"))
+    @ManyToMany(mappedBy = "estudiantes")
     private Set<Materia> materias = new HashSet<>();
 
 }

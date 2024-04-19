@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @Entity
 
-@Table(name="profesor")
-@PrimaryKeyJoinColumn(name = "id_persona")
+@Table(name="docente")
+@PrimaryKeyJoinColumn(name = "id_profesor")
 @DiscriminatorValue("profesor")
-public class Profesor extends Persona {
+public class Docente extends Persona {
 
     @Column(name = "legajo")
     private String legajo;
