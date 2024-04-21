@@ -61,4 +61,13 @@ public class EstudianteService implements IEstudianteService {
 
         return listaEstudiantesDto;
     }
+
+    @Override
+    public Estudiante obtenerEstudianteId(int id) throws Exception {
+        Estudiante estudiante = estudianteRepository.findById(id);
+        if(estudiante == null){
+            throw new Exception("Error: el estudiante con id: "+id+", no existe");
+        }
+        return estudiante;
+    }
 }

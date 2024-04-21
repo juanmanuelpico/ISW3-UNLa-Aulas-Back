@@ -1,0 +1,21 @@
+package com.equipo6.aulasUnla.services;
+
+import java.util.List;
+
+import com.equipo6.aulasUnla.dtos.request.MateriaAsignarUsuariosDTO;
+
+
+import com.equipo6.aulasUnla.dtos.request.MateriaDTORequest;
+import com.equipo6.aulasUnla.entities.Materia;
+
+public interface IMateriaService {
+    public boolean crearMateria(MateriaDTORequest dto) throws Exception;
+
+    public boolean crearMaterias(List<MateriaDTORequest> dtos) throws Exception;
+
+    public boolean agregarEstudiante(String materia, int idEstudiante) throws Exception;
+
+    public boolean agregarEstudiante(Materia materia, int idEstudiante) throws Exception;
+
+    public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception;
+}
