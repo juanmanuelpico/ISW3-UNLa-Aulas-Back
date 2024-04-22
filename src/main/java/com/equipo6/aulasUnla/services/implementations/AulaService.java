@@ -77,9 +77,35 @@ public class AulaService implements IAulaService{
       for (Aula aula : aulaRepository.findAllAulasAsignadas()) {
         //se vacia el listado de materias de esa aula
         aula.getMaterias().clear();
+        aula.setOcupadoTM(false);
+        aula.setOcupadoTN(false);
         aulaRepository.save(aula);
       }
       return true;
+    }
+
+    @Override
+    public boolean desasignarMateriaAAula(int idAula, String nombreMateria) throws Exception {
+        Aula aula = aulaRepository.findById(idAula);
+        if(aula == null){
+            throw new Exception("Error, el aula con id: "+idAula+" no existe");
+        }
+        //se trae la materia por el nombre
+        Materia materia = materiaService.obtenerMateria(nombreMateria);
+        //se elimina la materia al aula
+        aula.getMaterias().remove(materia);
+        
+        //dependiendo el turno al que pertenece la materia que se asigna, se desocupa en el aula
+        if(materia.getTurno() == "TM"){
+            aula.setOcupadoTM(false);
+        }
+        else if(materia.getTurno() == "TN"){
+            aula.setOcupadoTN(false);
+        }
+        //guardo el aula
+        aulaRepository.save(aula);
+        
+       return true;
     }
 
 }

@@ -60,6 +60,16 @@ public class AulaController {
         }
     }
 
+    @DeleteMapping("/desasignarMateria/{idAula}/{nombreMateria}")
+    public ResponseEntity<Object> desasiganarMateria(@PathVariable int idAula, @PathVariable String nombreMateria ){
+        try {
+            aulaService.desasignarMateriaAAula(idAula, nombreMateria);
+            return new ResponseEntity<>(new Mensaje("Desasignación exitosa"), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
   
 
     
