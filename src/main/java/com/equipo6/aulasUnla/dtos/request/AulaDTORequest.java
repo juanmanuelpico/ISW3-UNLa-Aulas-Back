@@ -20,7 +20,6 @@ public class AulaDTORequest {
 
     private boolean proyector;
 
-
     private boolean ventilador;
 
     private boolean estufa;
@@ -30,7 +29,7 @@ public class AulaDTORequest {
   //se setea false por default
  // private boolean ocupadoTN;
  
-    private String tipoDeAula;
+    private String tipoDeAula; // Se indica si es "Tradicional" o "Laboratorio"
  
     private int idEdificio;
 

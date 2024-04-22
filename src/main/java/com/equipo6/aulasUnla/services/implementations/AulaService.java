@@ -1,8 +1,6 @@
 package com.equipo6.aulasUnla.services.implementations;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -14,7 +12,7 @@ import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
 import com.equipo6.aulasUnla.entities.Aula;
 import com.equipo6.aulasUnla.repositories.AulaRepository;
 import com.equipo6.aulasUnla.services.IAulaService;
-import com.equipo6.aulasUnla.services.IEdificioServie;
+import com.equipo6.aulasUnla.services.IEdificioService;
 
 @Service("aulaService")
 public class AulaService implements IAulaService{
@@ -26,7 +24,7 @@ public class AulaService implements IAulaService{
     private ModelMapper modelMapper;
 
     @Autowired
-    private IEdificioServie edificioServie;
+    private IEdificioService edificioServie;
 
     @Override
     public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno) throws Exception {
