@@ -2,6 +2,7 @@ package com.equipo6.aulasUnla.services.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.equipo6.aulasUnla.dtos.response.EstudianteDTOResponse;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
@@ -121,6 +122,15 @@ public class MateriaService implements IMateriaService {
 
             return listaMateriasDto;
 
+    }
+
+    @Override
+    public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception {
+       if(anio < 0 || anio > 5){
+        throw new Exception("Error, numero de anio invalido, solo se puede del 1 al 5");
+       }
+
+       return materiaRepository.findByAnio(anio).stream().map(materia -> modelMapper.map(materia, MateriaDTOResponse.class)).collect(Collectors.toList());
     }
 
 

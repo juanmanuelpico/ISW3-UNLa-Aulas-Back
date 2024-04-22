@@ -17,5 +17,8 @@ public interface MateriaRepository extends JpaRepository<Materia, Integer> {
     Materia findByNombre(String nombre);
 
     List<Materia> findAll();
+
+    @Query(value = "SELECT * FROM materia m WHERE m.anio_pertenece = :anio", nativeQuery = true)
+    List<Materia> findByAnio(@Param(value = "anio") int anio);
     
 }

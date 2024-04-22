@@ -21,4 +21,6 @@ public interface IMateriaService {
     public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception;
 
     public List<MateriaDTOResponse> obtenerMaterias() throws Exception;
+
+    public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception;
 }

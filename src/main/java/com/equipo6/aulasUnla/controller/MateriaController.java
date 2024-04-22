@@ -71,5 +71,15 @@ public class MateriaController {
             return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("traerMateriasPorAnio/{anio}")
+    public ResponseEntity<Object> obtenerMateriasPorAnio(@PathVariable int anio){
+        try{
+            List<MateriaDTOResponse> listaDto = materiaService.obtenerMateriasPorAnio(anio);
+            return ResponseEntity.status(HttpStatus.OK).body(listaDto);
+        } catch (Exception e){
+            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
     
 }
