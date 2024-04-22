@@ -1,5 +1,6 @@
 package com.equipo6.aulasUnla.controller;
 
+import com.equipo6.aulasUnla.dtos.request.AulaDTORequest;
 import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +37,17 @@ public class AulaController {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/agregar")
+    public ResponseEntity<Object> agregarAula(@RequestBody AulaDTORequest aulaDTO){
+        try {
+            boolean aulaAgregada = aulaService.agregarAula(aulaDTO);
+            return new ResponseEntity<>(new Mensaje("Aula creada exitosamente"), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    
     
 }
