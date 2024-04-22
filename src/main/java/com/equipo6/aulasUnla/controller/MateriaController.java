@@ -48,7 +48,7 @@ public class MateriaController {
         }
     }
 
-    @PutMapping("/asignarEstudiante/{nombreMateria}/{idEstdiante}")
+    @PutMapping("/asignarEstudiante/{nombreMateria}/{idEstudiante}")
     public ResponseEntity<Object> asiganarEstudiante(@PathVariable String nombreMateria, @PathVariable int idEstudiante){
         try {
             materiaService.agregarEstudiante(nombreMateria, idEstudiante);

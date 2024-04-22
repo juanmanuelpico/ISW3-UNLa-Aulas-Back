@@ -20,7 +20,6 @@ public class AulaDTORequest {
 
     private boolean proyector;
 
-
     private boolean ventilador;
 
     private boolean estufa;
