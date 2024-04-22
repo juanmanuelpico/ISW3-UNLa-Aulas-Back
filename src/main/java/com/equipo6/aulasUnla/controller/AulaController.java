@@ -50,6 +50,7 @@ public class AulaController {
         }
     }
 
+    //desasigna todas las materias de las aulas
     @DeleteMapping("/desasignarMateriasDeAulas")
     public ResponseEntity<Object> desasiganarMateriasDeAulas(){
         try {
@@ -59,7 +60,7 @@ public class AulaController {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
-
+    //desasigna unicamente la materia del aula recibido por parametro
     @DeleteMapping("/desasignarMateria/{idAula}/{nombreMateria}")
     public ResponseEntity<Object> desasiganarMateria(@PathVariable int idAula, @PathVariable String nombreMateria ){
         try {

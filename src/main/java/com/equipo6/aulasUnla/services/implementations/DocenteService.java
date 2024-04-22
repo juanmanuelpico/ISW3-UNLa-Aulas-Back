@@ -5,6 +5,8 @@ import com.equipo6.aulasUnla.dtos.response.DocenteDTOResponse;
 import com.equipo6.aulasUnla.entities.Docente;
 import com.equipo6.aulasUnla.repositories.DocenteRepository;
 import com.equipo6.aulasUnla.services.IDocenteService;
+import com.equipo6.aulasUnla.services.IMateriaService;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class DocenteService implements IDocenteService {
     @Autowired(required = true)
     private ModelMapper modelMapper;
 
+    @Autowired
+    private IMateriaService materiaService;
+
     @Override
     public boolean crearDocente(DocenteDTORequest dto) throws Exception {
 
@@ -35,6 +40,9 @@ public class DocenteService implements IDocenteService {
         Docente docente = modelMapper.map(dto, Docente.class);
         docente.setFechaIngreso(LocalDate.now());
         docente.setLegajo("UNLa-0"+dto.getDni());
+        //tira excepcion en caso de que el nombre de materia sea incorrecto
+        docente.setMateria(materiaService.obtenerMateria(dto.getNombreMateria()));
+        //se guarda el docente con la materia 
         docenteRepository.save(docente);
         return true;
     }

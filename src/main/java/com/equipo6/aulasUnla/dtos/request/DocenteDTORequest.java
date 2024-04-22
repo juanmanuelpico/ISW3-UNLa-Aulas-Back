@@ -22,4 +22,6 @@ public class DocenteDTORequest {
 
     private String email;
 
+    private String nombreMateria;
+
 }
