@@ -38,15 +38,7 @@ public class AulaController {
         }
     }
 
-    @PostMapping("/agregar")
-    public ResponseEntity<Object> agregarAula(@RequestBody AulaDTORequest aulaDTO){
-        try {
-            boolean aulaAgregada = aulaService.agregarAula(aulaDTO);
-            return new ResponseEntity<>(new Mensaje("Aula creada exitosamente"), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
-    }
+  
 
     
     
