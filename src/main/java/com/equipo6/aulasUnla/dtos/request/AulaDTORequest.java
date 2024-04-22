@@ -12,8 +12,6 @@ import lombok.Setter;
 
 public class AulaDTORequest {
 
-  
-
     private int numero;
 
     private int capacidad;

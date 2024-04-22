@@ -1,5 +1,6 @@
 package com.equipo6.aulasUnla.controller;
 
+import com.equipo6.aulasUnla.dtos.request.AulaDTORequest;
 import com.equipo6.aulasUnla.dtos.request.EdificioDTORequest;
 import com.equipo6.aulasUnla.services.IEdificioService;
 import com.equipo6.aulasUnla.util.Mensaje;
@@ -26,4 +27,15 @@ public class EdificioController {
             return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("agregarAula")
+    public ResponseEntity<Object> agregarAula(@RequestBody AulaDTORequest dto){
+        try{
+            edificioService.agregarAula(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new Mensaje("Aula agregada exitosamente"));
+        }catch(Exception e){
+            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

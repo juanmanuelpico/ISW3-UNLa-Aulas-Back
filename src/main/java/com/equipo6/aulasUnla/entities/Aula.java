@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "edificio")
 @Entity
 
 @Table(name="aula")
