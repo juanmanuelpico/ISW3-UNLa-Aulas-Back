@@ -1,0 +1,232 @@
+[
+    {
+        "nombre": "Programacion de computadoras",
+        "turno": "TM",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Organizacion de computadoras",
+        "turno": "TM",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Arquitectura de computadoras",
+        "turno": "TM",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Matematica 1",
+        "turno": "TM",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Matematica 2",
+        "turno": "TM",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Matematica 2",
+        "turno": "TN",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Expresion de Problemas y Algoritmos",
+        "turno": "TN",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Expresion de Problemas y Algoritmos",
+        "turno": "TM",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Introduccion al pensamiento cientifico (IPC)",
+        "turno": "TM",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Ingenieria de Software 1",
+        "turno": "TM",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Introduccion a Bases de Datos",
+        "turno": "TN",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Algoritmos y Estructuras de Datos",
+        "turno": "TM",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Algoritmos y Estructuras de Datos",
+        "turno": "TN",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Orientacion a Objetos 1",
+        "turno": "TM",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Seminario de Lenguaje",
+        "turno": "TM",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Introduccion a los Sistemas Operativos",
+        "turno": "TM",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Matematica 3",
+        "turno": "TM",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Matematica 3",
+        "turno": "TN",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Probabilidad y Estadistica",
+        "turno": "TN",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Programacion concurrente",
+        "turno": "TN",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Ingenieria de software 2",
+        "turno": "TM",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Orientacion a objetos 2",
+        "turno": "TM",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Orientacion a objetos 2",
+        "turno": "TN",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Sistemas y Organizaciones",
+        "turno": "TM",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Base de datos 1",
+        "turno": "TN",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Proyecto de Software",
+        "turno": "TM",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Conceptos y Paradigmas",
+        "turno": "TN",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Redes y Comunicaciones",
+        "turno": "TM",
+        "anioPertenece": 3
+    },
+    {
+        "nombre": "Ingenieria de Software 3",
+        "turno": "TM",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Ingenieria de software 3",
+        "turno": "TN",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Bases de datos 2",
+        "turno": "TN",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Fundamentos de teoria de la Computacion",
+        "turno": "TN",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Sistemas Operativos",
+        "turno": "TM",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Sistemas Distribuidos",
+        "turno": "TM",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Matematica Discreta",
+        "turno": "TM",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Matematica Discreta",
+        "turno": "TN",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Optativa Area Algoritmos y Lenguajes",
+        "turno": "TM",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Optativa Area Arquitectura, Redes y SO",
+        "turno": "TM",
+        "anioPertenece": 4
+    },
+    {
+        "nombre": "Politica y Gestion",
+        "turno": "TN",
+        "anioPertenece": 5
+    },
+    {
+        "nombre": "Aspectos Legales",
+        "turno": "TN",
+        "anioPertenece": 5
+    },
+    {
+        "nombre": "Nuevos Escenarios",
+        "turno": "TN",
+        "anioPertenece": 5
+    },
+    {
+        "nombre": "Optativa Area Ingenieria de Software",
+        "turno": "TN",
+        "anioPertenece": 5
+    },
+    {
+        "nombre": "Tesis",
+        "turno": "TM",
+        "anioPertenece": 5
+    },
+    {
+        "nombre": "Ingles 1",
+        "turno": "TN",
+        "anioPertenece": 1
+    },
+    {
+        "nombre": "Ingles 2",
+        "turno": "TN",
+        "anioPertenece": 2
+    },
+    {
+        "nombre": "Ingles 3",
+        "turno": "TN",
+        "anioPertenece": 3
+    }
+]

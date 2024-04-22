@@ -1,7 +1,10 @@
 package com.equipo6.aulasUnla.services.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.equipo6.aulasUnla.dtos.response.EstudianteDTOResponse;
+import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,5 +103,23 @@ public class MateriaService implements IMateriaService {
        ;
     }
 
-    
+    @Override
+    public List<MateriaDTOResponse> obtenerMaterias() throws Exception{
+
+            List<MateriaDTOResponse> listaMateriasDto = new ArrayList<>();
+            List<Materia> listaMateriaEnt = materiaRepository.findAll();
+
+            if (listaMateriaEnt.isEmpty()) {
+                throw new Exception("La lista de estudiantes esta vacía.");
+            }
+
+            for (Materia m : listaMateriaEnt) {
+                listaMateriasDto.add(modelMapper.map(m, MateriaDTOResponse.class));
+            }
+
+            return listaMateriasDto;
+
+    }
+
+
 }

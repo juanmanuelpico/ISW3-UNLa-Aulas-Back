@@ -6,6 +6,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.equipo6.aulasUnla.entities.Materia;
 
+import java.util.List;
+
 public interface MateriaRepository extends JpaRepository<Materia, Integer> {
 
 
@@ -13,5 +15,7 @@ public interface MateriaRepository extends JpaRepository<Materia, Integer> {
     Materia findMateriaByNombreAndTurno(@Param(value = "nombre") String nombre, @Param(value = "turno") String turno);
 
     Materia findByNombre(String nombre);
+
+    List<Materia> findAll();
     
 }

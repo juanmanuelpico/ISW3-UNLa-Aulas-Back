@@ -6,6 +6,7 @@ import com.equipo6.aulasUnla.dtos.request.MateriaAsignarUsuariosDTO;
 
 
 import com.equipo6.aulasUnla.dtos.request.MateriaDTORequest;
+import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import com.equipo6.aulasUnla.entities.Materia;
 
 public interface IMateriaService {
@@ -18,4 +19,6 @@ public interface IMateriaService {
     public boolean agregarEstudiante(Materia materia, int idEstudiante) throws Exception;
 
     public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception;
+
+    public List<MateriaDTOResponse> obtenerMaterias() throws Exception;
 }
