@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.equipo6.aulasUnla.dtos.request.AulaDTORequest;
 import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
 import com.equipo6.aulasUnla.entities.Aula;
+import com.equipo6.aulasUnla.entities.Materia;
 import com.equipo6.aulasUnla.repositories.AulaRepository;
 import com.equipo6.aulasUnla.services.IAulaService;
 import com.equipo6.aulasUnla.services.IEdificioService;
@@ -53,9 +54,22 @@ public class AulaService implements IAulaService{
         if(aula == null){
             throw new Exception("Error, el aula con id: "+idAula+" no existe");
         }
-        aula.getMaterias().add(materiaService.obtenerMateria(nombreMateria));
-
+        //se trae la materia por el nombre
+        Materia materia = materiaService.obtenerMateria(nombreMateria);
+        //se asigna la materia al aula
+        aula.getMaterias().add(materia);
+        
+        //dependiendo el turno al que pertenece la materia que se asigna, se ocupa en el aula
+        if(materia.getTurno() == "TM"){
+            aula.setOcupadoTM(true);
+        }
+        else if(materia.getTurno() == "TN"){
+            aula.setOcupadoTN(true);
+        }
+        //guardo el aula
         aulaRepository.save(aula);
+        //si se guarda el aula, entonces actualizamos la materia con aula asignada = true
+        materiaService.actualizarAulaAsignada(materia);
        return true;
     }
 
