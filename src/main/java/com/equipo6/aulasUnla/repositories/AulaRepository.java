@@ -10,6 +10,8 @@ import com.equipo6.aulasUnla.entities.Aula;
 
 public interface AulaRepository extends JpaRepository<Aula, Integer>{
 
+    Aula findById(int id);
+
     //trae todas las aulas que sean aptas para la cantidad de estudiantes y que estan libres en el TURNO MAÑANA
     @Query(value = "SELECT * FROM aula a WHERE a.capacidad >= :cant AND a.ocupado_TM = false", nativeQuery = true)
     List<Aula> findAulasForMateriaTM(@Param("cant")int cantEstudiantes);

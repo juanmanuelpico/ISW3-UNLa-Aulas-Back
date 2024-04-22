@@ -38,6 +38,16 @@ public class AulaController {
         }
     }
 
+    @PostMapping("/agregarMateria/{idAula}/{nombreMateria}")
+    public ResponseEntity<Object> obtenerListadoAulasDisponiblesEnTurno(@PathVariable int idAula, @PathVariable String nombreMateria){
+        try {
+            boolean materiaAsignada = aulaService.asignarMateriaAAula(idAula, nombreMateria);
+            return new ResponseEntity<>(new Mensaje("Materia: "+nombreMateria+", asignada a aula con id: "+idAula+" exitosamente"), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
   
 
     

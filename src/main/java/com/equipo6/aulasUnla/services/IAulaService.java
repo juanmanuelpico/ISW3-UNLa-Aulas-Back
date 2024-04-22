@@ -9,4 +9,6 @@ public interface IAulaService {
     
     public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno) throws Exception;
 
+    public boolean asignarMateriaAAula(int idAula, String nombreMateria) throws Exception;
+
 }

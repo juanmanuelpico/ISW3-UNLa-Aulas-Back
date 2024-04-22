@@ -133,5 +133,16 @@ public class MateriaService implements IMateriaService {
        return materiaRepository.findByAnio(anio).stream().map(materia -> modelMapper.map(materia, MateriaDTOResponse.class)).collect(Collectors.toList());
     }
 
+    @Override
+    public Materia obtenerMateria(String nombre) throws Exception {
+       Materia materia = materiaRepository.findByNombre(nombre);
+
+       if(materia == null){
+        throw new Exception("Error, la materia con nombre : "+nombre+", no existe");
+       }
+
+       return materia;
+    }
+
 
 }

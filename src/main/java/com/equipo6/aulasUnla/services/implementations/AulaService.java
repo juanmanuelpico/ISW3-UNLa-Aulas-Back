@@ -13,6 +13,7 @@ import com.equipo6.aulasUnla.entities.Aula;
 import com.equipo6.aulasUnla.repositories.AulaRepository;
 import com.equipo6.aulasUnla.services.IAulaService;
 import com.equipo6.aulasUnla.services.IEdificioService;
+import com.equipo6.aulasUnla.services.IMateriaService;
 
 @Service("aulaService")
 public class AulaService implements IAulaService{
@@ -25,6 +26,9 @@ public class AulaService implements IAulaService{
 
     @Autowired
     private IEdificioService edificioServie;
+
+    @Autowired
+    private IMateriaService materiaService;
 
     @Override
     public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno) throws Exception {
@@ -41,6 +45,18 @@ public class AulaService implements IAulaService{
        }
        
        return aulas.stream().map(aula -> modelMapper.map(aula, AulaDTOResponse.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean asignarMateriaAAula(int idAula, String nombreMateria) throws Exception {
+        Aula aula = aulaRepository.findById(idAula);
+        if(aula == null){
+            throw new Exception("Error, el aula con id: "+idAula+" no existe");
+        }
+        aula.getMaterias().add(materiaService.obtenerMateria(nombreMateria));
+
+        aulaRepository.save(aula);
+       return true;
     }
 
 }
