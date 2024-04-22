@@ -3,20 +3,14 @@ package com.equipo6.aulasUnla.controller;
 
 import java.util.List;
 
+import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.equipo6.aulasUnla.dtos.request.MateriaAsignarUsuariosDTO;
 import com.equipo6.aulasUnla.dtos.request.MateriaDTORequest;
-import com.equipo6.aulasUnla.entities.Materia;
 import com.equipo6.aulasUnla.services.IMateriaService;
 import com.equipo6.aulasUnla.util.Mensaje;
 
@@ -65,6 +59,16 @@ public class MateriaController {
             return new ResponseEntity<>(new Mensaje("estudiantes agregados correctamente a materia: "+ dto.getNombreMateria()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("traerMaterias")
+    public ResponseEntity<Object> obtenerMaterias(){
+        try{
+            List<MateriaDTOResponse> listaDto = materiaService.obtenerMaterias();
+            return ResponseEntity.status(HttpStatus.OK).body(listaDto);
+        } catch (Exception e){
+            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
         }
     }
     

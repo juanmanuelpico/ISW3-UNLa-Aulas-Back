@@ -12,8 +12,6 @@ import lombok.Setter;
 
 public class AulaDTORequest {
 
-  
-
     private int numero;
 
     private int capacidad;
@@ -29,7 +27,7 @@ public class AulaDTORequest {
   //se setea false por default
  // private boolean ocupadoTN;
  
-    private String tipoDeAula;
+    private String tipoDeAula; // Se indica si es "Tradicional" o "Laboratorio"
  
     private int idEdificio;
 

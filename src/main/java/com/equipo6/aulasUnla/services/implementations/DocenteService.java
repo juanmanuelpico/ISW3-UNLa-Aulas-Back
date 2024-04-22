@@ -34,7 +34,7 @@ public class DocenteService implements IDocenteService {
 
         Docente docente = modelMapper.map(dto, Docente.class);
         docente.setFechaIngreso(LocalDate.now());
-        docente.setLegajo("UNLa-"+dto.getId());
+        docente.setLegajo("UNLa-0"+dto.getDni());
         docenteRepository.save(docente);
         return true;
     }
