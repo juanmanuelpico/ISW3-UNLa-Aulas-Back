@@ -144,15 +144,9 @@ public class MateriaService implements IMateriaService {
        return materia;
     }
     
-    //metodo unico en el que se recibe una materia para actualizarla. Se recibe la materia desde AulaService
-    //se pone en true al asignar y al desasignar en false
-    @Override
-    public void actualizarAulaAsignada(Materia materia) throws Exception {
-        materia.setAulaAsignada(!materia.isAulaAsignada());
-        materiaRepository.save(materia);
-    }
+   
 
-
+  
 
 
 }

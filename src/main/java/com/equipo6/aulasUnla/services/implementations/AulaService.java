@@ -68,9 +68,18 @@ public class AulaService implements IAulaService{
         }
         //guardo el aula
         aulaRepository.save(aula);
-        //si se guarda el aula, entonces actualizamos la materia con aula asignada = true
-        materiaService.actualizarAulaAsignada(materia);
+        
        return true;
+    }
+
+    @Override
+    public boolean desasignarTodasMaterias() throws Exception {
+      for (Aula aula : aulaRepository.findAllAulasAsignadas()) {
+        //se vacia el listado de materias de esa aula
+        aula.getMaterias().clear();
+        aulaRepository.save(aula);
+      }
+      return true;
     }
 
 }

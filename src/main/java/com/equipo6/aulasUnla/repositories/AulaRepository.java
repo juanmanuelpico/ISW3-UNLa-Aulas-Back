@@ -23,5 +23,10 @@ public interface AulaRepository extends JpaRepository<Aula, Integer>{
     //trae todas las aulas que sean aptas para la cantidad de estudiantes y que estan libres en el TURNO NOCHE
     @Query(value = "SELECT * FROM aula a WHERE a.capacidad >= :cant", nativeQuery = true)
     List<Aula> findAllAulasForMateria(@Param("cant")int cantEstudiantes);
+
+    @Query(value = "SELECT * FROM aula a WHERE a.ocupado_TM = true OR a.ocupado_TN = true", nativeQuery = true)
+    List<Aula> findAllAulasAsignadas();
+
+
     
 }

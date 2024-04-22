@@ -11,4 +11,6 @@ public interface IAulaService {
 
     public boolean asignarMateriaAAula(int idAula, String nombreMateria) throws Exception;
 
+    public boolean desasignarTodasMaterias() throws Exception;
+
 }

@@ -26,5 +26,6 @@ public interface IMateriaService {
 
     public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception;
 
-    public void actualizarAulaAsignada(Materia materia) throws Exception;
+   
+   
 }
