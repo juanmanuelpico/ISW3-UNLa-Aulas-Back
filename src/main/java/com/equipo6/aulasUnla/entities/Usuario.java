@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @Entity
 
 @Table(name="usuario")

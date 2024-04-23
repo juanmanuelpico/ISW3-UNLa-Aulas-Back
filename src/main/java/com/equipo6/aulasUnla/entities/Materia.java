@@ -10,7 +10,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @Entity
 
 @Table(name="materia")

@@ -59,6 +59,7 @@ public class AulaService implements IAulaService{
         //se asigna la materia al aula
 
         aula.getMaterias().add(materia);
+        materia.setAula(aula);
         
         //dependiendo el turno al que pertenece la materia que se asigna, se ocupa en el aula
         if(materia.getTurno().equals("TM")){
