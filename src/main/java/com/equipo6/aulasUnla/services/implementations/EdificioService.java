@@ -1,6 +1,7 @@
 package com.equipo6.aulasUnla.services.implementations;
 
 import com.equipo6.aulasUnla.dtos.request.AulaDTORequest;
+import com.equipo6.aulasUnla.dtos.request.EdificioAgregarAulasDTO;
 import com.equipo6.aulasUnla.dtos.request.EdificioDTORequest;
 import com.equipo6.aulasUnla.entities.Aula;
 import org.modelmapper.ModelMapper;
@@ -10,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.equipo6.aulasUnla.entities.Edificio;
 import com.equipo6.aulasUnla.repositories.EdificioRepository;
 import com.equipo6.aulasUnla.services.IEdificioService;
-
-import java.util.HashSet;
 
 @Service("edificioService")
 public class EdificioService implements IEdificioService {
@@ -73,9 +72,39 @@ public class EdificioService implements IEdificioService {
         }
 
         edificio.getAulas().add(aula);
+        edificio.setCantAulas(edificio.getAulas().size());
         edificioRepository.save(edificio);
 
         return true;
     }
 
+    @Override
+    public boolean agregarAulas(EdificioAgregarAulasDTO dto) throws Exception {
+
+        Edificio edificio = edificioRepository.findById(dto.getIdEdificio());
+
+        for (AulaDTORequest dtoAula : dto.getAulas()) {
+
+            Aula aula = modelMapper.map(dtoAula, Aula.class);
+            //arranca estando disponible en ambos turnos
+            aula.setOcupadoTM(false);
+            aula.setOcupadoTN(false);
+            //suponemos que todos tienen estufa y ventilacion.
+            aula.setEstufa(true);
+            aula.setVentilador(true);
+
+            if ("Laboratorio".equals(aula.getTipoDeAula())) {
+                aula.setProyector(true);
+            }else{
+                aula.setProyector(false);
+            }
+            aula.setEdificio(edificio);
+            edificio.getAulas().add(aula);
+
+        }
+        edificio.setCantAulas(edificio.getAulas().size());
+        edificioRepository.save(edificio);
+
+        return true;
+    }
 }
