@@ -53,7 +53,7 @@ public class MateriaController {
     }
 
     @PutMapping("/asignarEstudiantes")
-    public ResponseEntity<Object> asiganarEstudiante(@RequestBody MateriaAsignarUsuariosDTO dto){
+    public ResponseEntity<Object> asignarEstudiante(@RequestBody MateriaAsignarUsuariosDTO dto){
         try {
             materiaService.agregarEstudiantes(dto);
             return new ResponseEntity<>(new Mensaje("estudiantes agregados correctamente a materia: "+ dto.getNombreMateria()), HttpStatus.OK);

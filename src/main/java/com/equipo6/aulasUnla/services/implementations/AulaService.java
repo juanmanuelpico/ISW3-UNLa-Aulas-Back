@@ -57,13 +57,14 @@ public class AulaService implements IAulaService{
         //se trae la materia por el nombre
         Materia materia = materiaService.obtenerMateria(nombreMateria);
         //se asigna la materia al aula
+
         aula.getMaterias().add(materia);
         
         //dependiendo el turno al que pertenece la materia que se asigna, se ocupa en el aula
-        if(materia.getTurno() == "TM"){
+        if(materia.getTurno().equals("TM")){
             aula.setOcupadoTM(true);
         }
-        else if(materia.getTurno() == "TN"){
+        else if(materia.getTurno().equals("TN")){
             aula.setOcupadoTN(true);
         }
         //guardo el aula
