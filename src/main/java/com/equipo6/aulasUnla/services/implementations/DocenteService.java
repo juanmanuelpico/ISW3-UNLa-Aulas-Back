@@ -40,8 +40,7 @@ public class DocenteService implements IDocenteService {
         Docente docente = modelMapper.map(dto, Docente.class);
         docente.setFechaIngreso(LocalDate.now());
         docente.setLegajo("UNLa-0"+dto.getDni());
-        //tira excepcion en caso de que el nombre de materia sea incorrecto
-        docente.setMateria(materiaService.obtenerMateria(dto.getNombreMateria()));
+
         //se guarda el docente con la materia 
         docenteRepository.save(docente);
         return true;
