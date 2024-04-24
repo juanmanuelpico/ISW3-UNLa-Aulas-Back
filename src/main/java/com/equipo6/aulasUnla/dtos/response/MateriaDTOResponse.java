@@ -17,4 +17,12 @@ public class MateriaDTOResponse {
     private String turno;
 
     private int anioPertenece;
+
+    private int cantidadEstudiantes;
+
+    private String docenteACargo;
+
+    private int aulaAsignada;
+
+    private String edificio;
 }

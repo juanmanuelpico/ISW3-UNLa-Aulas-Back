@@ -75,7 +75,7 @@ public class MateriaController {
     @GetMapping("traerMateriasPorAnio/{anio}")
     public ResponseEntity<Object> obtenerMateriasPorAnio(@PathVariable int anio){
         try{
-            List<MateriaDTOResponse> listaDto = materiaService.obtenerMateriasPorAnio(anio);
+            List<MateriaDTOResponse> listaDto = materiaService.obtenerMateriasPorAnioConDocenteAulaEdificio(anio);
             return ResponseEntity.status(HttpStatus.OK).body(listaDto);
         } catch (Exception e){
             return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
