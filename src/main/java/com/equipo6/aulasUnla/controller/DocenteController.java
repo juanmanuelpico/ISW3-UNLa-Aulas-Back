@@ -12,13 +12,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/docente")
+@RequestMapping("/docentes")
 @CrossOrigin(origins = "http://localhost:3000") // Permitir solicitudes desde localhost:3000
 
 public class DocenteController {
 
     @Autowired
     private IDocenteService docenteService;
+
+    @GetMapping("/")
+    public ResponseEntity<Object> obtenerDocentes(){
+        try{
+            List<DocenteDTOResponse> listaDto = docenteService.obtenerDocentes();
+            return ResponseEntity.status(HttpStatus.OK).body(listaDto);
+        } catch (Exception e){
+            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @PostMapping("altaDocente")
     public ResponseEntity<Object> altaDocente(@RequestBody DocenteDTORequest dto){
@@ -40,14 +50,6 @@ public class DocenteController {
         }
     }
 
-    @GetMapping("traerDocentes")
-    public ResponseEntity<Object> obtenerDocentes(){
-        try{
-            List<DocenteDTOResponse> listaDto = docenteService.obtenerDocentes();
-            return ResponseEntity.status(HttpStatus.OK).body(listaDto);
-        } catch (Exception e){
-            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
-        }
-    }
+
 
 }

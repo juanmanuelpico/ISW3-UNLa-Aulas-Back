@@ -1,8 +1,5 @@
 package com.equipo6.aulasUnla.controller;
 
-import com.equipo6.aulasUnla.dtos.request.AulaDTORequest;
-import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +10,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
 import com.equipo6.aulasUnla.services.IAulaService;
 import com.equipo6.aulasUnla.util.Mensaje;
 

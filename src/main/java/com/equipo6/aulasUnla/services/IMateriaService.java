@@ -10,6 +10,8 @@ import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import com.equipo6.aulasUnla.entities.Materia;
 
 public interface IMateriaService {
+    List<MateriaDTOResponse> obtenerMateriasPorAnioConDocenteAulaEdificio(int anio) throws Exception;
+
     public Materia obtenerMateria(String nombre) throws Exception;
 
     public boolean crearMateria(MateriaDTORequest dto) throws Exception;

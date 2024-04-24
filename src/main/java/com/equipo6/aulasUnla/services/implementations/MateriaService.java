@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.equipo6.aulasUnla.dtos.response.EstudianteDTOResponse;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +81,7 @@ public class MateriaService implements IMateriaService {
         Estudiante estudiante = estudianteService.obtenerEstudianteId(idEstudiante);
 
         materia.getEstudiantes().add(estudiante);
+        materia.setCantEstudiantes(materia.getEstudiantes().size()); //asigna el tamaño actual de la lista
         materiaRepository.save(materia);
  
          return true;
@@ -126,12 +126,46 @@ public class MateriaService implements IMateriaService {
 
     @Override
     public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception {
-       if(anio < 0 || anio > 5){
-        throw new Exception("Error, numero de anio invalido, solo se puede del 1 al 5");
-       }
+        if(anio < 0 || anio > 5){
+            throw new Exception("Error, numero de anio invalido, solo se puede del 1 al 5");
+        }
 
-       return materiaRepository.findByAnio(anio).stream().map(materia -> modelMapper.map(materia, MateriaDTOResponse.class)).collect(Collectors.toList());
+        return materiaRepository.findByAnio(anio).stream().map(materia -> modelMapper.map(materia, MateriaDTOResponse.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<MateriaDTOResponse> obtenerMateriasPorAnioConDocenteAulaEdificio(int anio) throws Exception {
+        if (anio < 0 || anio > 5) {
+            throw new Exception("Error, número de año inválido, solo se puede del 1 al 5");
+        }
+        List<Materia> materiasObtenidas = materiaRepository.findByAnio(anio);
+        List<MateriaDTOResponse> materiasResponse = new ArrayList<>();
+
+        for (Materia m : materiasObtenidas) {
+            MateriaDTOResponse mDto = modelMapper.map(m, MateriaDTOResponse.class); // Crear el DTO a partir de la materia
+
+            if(m.getDocente() != null) {
+                mDto.setDocenteACargo(m.getDocente().getNombre()); // Setear el nombre del docente
+            }else{
+                mDto.setDocenteACargo("Sin asignar");
+            }
+            if(m.getAula() != null) {
+                mDto.setAulaAsignada(m.getAula().getNumero()); // Setear el número del aula
+            }else{
+                mDto.setAulaAsignada(0);
+            }
+            if(m.getAula() != null) {
+                if(m.getAula().getEdificio() != null){
+                    mDto.setEdificio(m.getAula().getEdificio().getNombre()); // Setear el nombre del edificio
+                }
+            }else {
+                mDto.setEdificio("Sin asignar");
+            }
+            materiasResponse.add(mDto); // Agregar el DTO modificado a la lista de respuesta
+        }
+        return materiasResponse;
+    }
+
 
     @Override
     public Materia obtenerMateria(String nombre) throws Exception {

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estudiante")
+@RequestMapping("/estudiantes")
 @CrossOrigin(origins = "http://localhost:3000") // Permitir solicitudes desde localhost:3000
 public class EstudianteController {
 
@@ -20,32 +20,32 @@ public class EstudianteController {
     private IEstudianteService estudianteService;
 
     @PostMapping("altaEstudiante")
-    public ResponseEntity<Object> altaEstudiante(@RequestBody EstudianteDTORequest dto){
-        try{
+    public ResponseEntity<Object> altaEstudiante(@RequestBody EstudianteDTORequest dto) {
+        try {
             estudianteService.crearEstudiante(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(new Mensaje("Estudiante creado exitosamente"));
-        }catch(Exception e){
-            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("altaEstudiantes")
-    public ResponseEntity<Object> altaEstudiantes(@RequestBody List<EstudianteDTORequest> dtos){
-        try{
+    public ResponseEntity<Object> altaEstudiantes(@RequestBody List<EstudianteDTORequest> dtos) {
+        try {
             estudianteService.crearEstudiantes(dtos);
             return ResponseEntity.status(HttpStatus.CREATED).body(new Mensaje("Estudiantes creados exitosamente"));
-        }catch(Exception e){
-            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("traerEstudiantes")
-    public ResponseEntity<Object> obtenerEstudiantes(){
-        try{
+    public ResponseEntity<Object> obtenerEstudiantes() {
+        try {
             List<EstudianteDTOResponse> listaDto = estudianteService.obtenerEstudiantes();
             return ResponseEntity.status(HttpStatus.OK).body(listaDto);
-        } catch (Exception e){
-            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 }
