@@ -158,6 +158,7 @@ public class MateriaService implements IMateriaService {
                 if(m.getAula().getEdificio() != null){
                     mDto.setEdificio(m.getAula().getEdificio().getNombre()); // Setear el nombre del edificio
                 }
+                mDto.setIdAulaAsignada(m.getAula().getId());
             }else {
                 mDto.setEdificio("Sin asignar");
             }
