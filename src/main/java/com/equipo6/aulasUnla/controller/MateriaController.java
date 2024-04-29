@@ -1,6 +1,5 @@
 package com.equipo6.aulasUnla.controller;
 
-
 import java.util.List;
 
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
@@ -22,8 +21,18 @@ public class MateriaController {
     @Autowired
     private IMateriaService materiaService;
 
+    @GetMapping("/")
+    public ResponseEntity<Object> obtenerMaterias() {
+        try {
+            List<MateriaDTOResponse> listaDto = materiaService.obtenerMaterias();
+            return ResponseEntity.status(HttpStatus.OK).body(listaDto);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping("/crear")
-    public ResponseEntity<Object> crearMateria(@RequestBody MateriaDTORequest dto){
+    public ResponseEntity<Object> crearMateria(@RequestBody MateriaDTORequest dto) {
         try {
             materiaService.crearMateria(dto);
             return new ResponseEntity<>(new Mensaje("materia creada con exito"), HttpStatus.OK);
@@ -33,7 +42,7 @@ public class MateriaController {
     }
 
     @PostMapping("/crearMaterias")
-    public ResponseEntity<Object> crearMaterias(@RequestBody List<MateriaDTORequest> dtos){
+    public ResponseEntity<Object> crearMaterias(@RequestBody List<MateriaDTORequest> dtos) {
         try {
             materiaService.crearMaterias(dtos);
             return new ResponseEntity<>(new Mensaje("materias creada con exito"), HttpStatus.OK);
@@ -43,43 +52,38 @@ public class MateriaController {
     }
 
     @PutMapping("/asignarEstudiante/{nombreMateria}/{idEstudiante}")
-    public ResponseEntity<Object> asiganarEstudiante(@PathVariable String nombreMateria, @PathVariable int idEstudiante){
+    public ResponseEntity<Object> asiganarEstudiante(@PathVariable String nombreMateria,
+            @PathVariable int idEstudiante) {
         try {
             materiaService.agregarEstudiante(nombreMateria, idEstudiante);
-            return new ResponseEntity<>(new Mensaje("estudiante con id: "+ idEstudiante+ " agregado correctamente a materia: "+ nombreMateria), HttpStatus.OK);
+            return new ResponseEntity<>(new Mensaje(
+                    "estudiante con id: " + idEstudiante + " agregado correctamente a materia: " + nombreMateria),
+                    HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/asignarEstudiantes")
-    public ResponseEntity<Object> asignarEstudiante(@RequestBody MateriaAsignarUsuariosDTO dto){
+    public ResponseEntity<Object> asignarEstudiante(@RequestBody MateriaAsignarUsuariosDTO dto) {
         try {
             materiaService.agregarEstudiantes(dto);
-            return new ResponseEntity<>(new Mensaje("estudiantes agregados correctamente a materia: "+ dto.getNombreMateria()), HttpStatus.OK);
+            return new ResponseEntity<>(
+                    new Mensaje("estudiantes agregados correctamente a materia: " + dto.getNombreMateria()),
+                    HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("traerMaterias")
-    public ResponseEntity<Object> obtenerMaterias(){
-        try{
-            List<MateriaDTOResponse> listaDto = materiaService.obtenerMaterias();
+    @GetMapping("traerMateriasPorAnio/{anio}")
+    public ResponseEntity<Object> obtenerMateriasPorAnio(@PathVariable int anio) {
+        try {
+            List<MateriaDTOResponse> listaDto = materiaService.obtenerMateriasPorAnioConDocenteAulaEdificio(anio);
             return ResponseEntity.status(HttpStatus.OK).body(listaDto);
-        } catch (Exception e){
-            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("traerMateriasPorAnio/{anio}")
-    public ResponseEntity<Object> obtenerMateriasPorAnio(@PathVariable int anio){
-        try{
-            List<MateriaDTOResponse> listaDto = materiaService.obtenerMateriasPorAnioConDocenteAulaEdificio(anio);
-            return ResponseEntity.status(HttpStatus.OK).body(listaDto);
-        } catch (Exception e){
-            return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
-        }
-    }
-    
 }
