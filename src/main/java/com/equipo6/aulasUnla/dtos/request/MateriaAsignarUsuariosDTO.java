@@ -18,5 +18,7 @@ public class MateriaAsignarUsuariosDTO {
 
     private String nombreMateria;
 
+    private String turno;
+
     private List<Integer> idEstudiantes;
 }

@@ -37,6 +37,13 @@ public class EstudianteService implements IEstudianteService {
     }
 
     @Override
+    public boolean crearEstudiante(Estudiante estudiante) throws Exception {
+
+        estudianteRepository.save(estudiante);
+        return true;
+    }
+
+    @Override
     public boolean crearEstudiantes(List<EstudianteDTORequest> dtosEstudiantes) throws Exception {
 
         for(EstudianteDTORequest dto : dtosEstudiantes) {

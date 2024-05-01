@@ -37,10 +37,10 @@ public class AulaService implements IAulaService{
        }
        List<Aula> aulas = null;
 
-       if(turno == "TM"){
+       if(turno.equals("TM")){
         aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes);
        }
-       else if(turno == "TN"){
+       else if(turno.equals("TN")){
         aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes);
        }
        
