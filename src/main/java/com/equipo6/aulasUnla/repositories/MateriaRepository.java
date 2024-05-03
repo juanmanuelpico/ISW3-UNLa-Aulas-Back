@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface MateriaRepository extends JpaRepository<Materia, Integer> {
 
+    Materia findById(int id);
 
     @Query(value = "SELECT * FROM materia m WHERE m.nombre = :nombre and m.turno = :turno", nativeQuery = true)
     Materia findMateriaByNombreAndTurno(@Param(value = "nombre") String nombre, @Param(value = "turno") String turno);

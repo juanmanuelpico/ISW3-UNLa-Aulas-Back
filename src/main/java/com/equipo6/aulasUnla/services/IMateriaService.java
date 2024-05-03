@@ -2,9 +2,8 @@ package com.equipo6.aulasUnla.services;
 
 import java.util.List;
 
-import com.equipo6.aulasUnla.dtos.request.MateriaAsignarUsuariosDTO;
 
-
+import com.equipo6.aulasUnla.dtos.request.MateriaAsignarDocenteDTO;
 import com.equipo6.aulasUnla.dtos.request.MateriaDTORequest;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import com.equipo6.aulasUnla.entities.Materia;
@@ -19,6 +18,8 @@ public interface IMateriaService {
     public boolean crearMateria(MateriaDTORequest dto) throws Exception;
 
     public boolean crearMaterias(List<MateriaDTORequest> dtos) throws Exception;
+
+    public boolean asignarDocenteAMateria(MateriaAsignarDocenteDTO dto) throws Exception;
 
     public List<MateriaDTOResponse> obtenerMaterias() throws Exception;
 

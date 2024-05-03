@@ -49,7 +49,4 @@ public class DocenteController {
             return new ResponseEntity<>(new Mensaje(e.getMessage()) , HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
 }

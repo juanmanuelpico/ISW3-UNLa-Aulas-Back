@@ -55,6 +55,18 @@ public class DocenteService implements IDocenteService {
     }
 
     @Override
+    public Docente traerDocentePorId(int id) throws Exception {
+        // Verificar si el docente existe
+        Docente docenteEnt = docenteRepository.findById(id);
+
+        if (docenteEnt == null) {
+            throw new Exception("El docente con id " + id + " no existe");
+        }
+
+        return docenteEnt;
+    }
+
+    @Override
     public List<DocenteDTOResponse> obtenerDocentes() throws Exception {
         List<DocenteDTOResponse> listaDocentesDto = new ArrayList<>();
         List<Docente> listaDocentesEnt = docenteRepository.findAll();

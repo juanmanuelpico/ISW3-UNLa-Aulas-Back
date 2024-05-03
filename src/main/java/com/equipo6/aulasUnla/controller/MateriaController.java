@@ -2,6 +2,7 @@ package com.equipo6.aulasUnla.controller;
 
 import java.util.List;
 
+import com.equipo6.aulasUnla.dtos.request.MateriaAsignarDocenteDTO;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import com.equipo6.aulasUnla.services.IMateriaEstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,18 @@ public class MateriaController {
             materiaEstudianteService.asignarEstudiantesAMateria(dto);
             return new ResponseEntity<>(
                     new Mensaje("estudiantes agregados correctamente a materia: " + dto.getNombreMateria()),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/asignarDocente")
+    public ResponseEntity<Object> asignarEstudiante(@RequestBody MateriaAsignarDocenteDTO dto) {
+        try {
+            materiaService.asignarDocenteAMateria(dto);
+            return new ResponseEntity<>(
+                    new Mensaje("Docente con id: "+dto.getIdDocente()+" agregado exitosamente a materia: "+dto.getIdMateria()),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);

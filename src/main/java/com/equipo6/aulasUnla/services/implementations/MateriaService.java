@@ -1,20 +1,19 @@
 package com.equipo6.aulasUnla.services.implementations;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.equipo6.aulasUnla.dtos.request.MateriaAsignarDocenteDTO;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
-import com.equipo6.aulasUnla.repositories.EstudianteRepository;
+import com.equipo6.aulasUnla.entities.Docente;
+import com.equipo6.aulasUnla.services.IDocenteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import com.equipo6.aulasUnla.dtos.request.MateriaAsignarUsuariosDTO;
 import com.equipo6.aulasUnla.dtos.request.MateriaDTORequest;
-import com.equipo6.aulasUnla.entities.Estudiante;
 import com.equipo6.aulasUnla.entities.Materia;
 import com.equipo6.aulasUnla.repositories.MateriaRepository;
 import com.equipo6.aulasUnla.services.IEstudianteService;
@@ -28,6 +27,10 @@ public class MateriaService implements IMateriaService {
 
     @Autowired
     private IEstudianteService estudianteService;
+
+    @Autowired
+    @Lazy
+    private IDocenteService docenteService;
 
     @Autowired(required = true)
     private ModelMapper modelMapper;
@@ -57,7 +60,6 @@ public class MateriaService implements IMateriaService {
         }
         return retorno;
     }
-
 
     @Override
     public List<MateriaDTOResponse> obtenerMaterias() throws Exception{
@@ -118,7 +120,7 @@ public class MateriaService implements IMateriaService {
             MateriaDTOResponse mDto = modelMapper.map(m, MateriaDTOResponse.class); // Crear el DTO a partir de la materia
 
             if(m.getDocente() != null) {
-                mDto.setDocenteACargo(m.getDocente().getNombre()); // Setear el nombre del docente
+                mDto.setDocenteACargo(m.getDocente().getNombre()+" "+m.getDocente().getApellido()); // Setear el nombre del docente con apellido
             }else{
                 mDto.setDocenteACargo("Sin asignar");
             }
@@ -160,5 +162,23 @@ public class MateriaService implements IMateriaService {
         }
 
         return materia;
+    }
+
+    public boolean asignarDocenteAMateria(MateriaAsignarDocenteDTO dto) throws Exception {
+        // Verificar si la materia existe
+        Materia materiaEnt = materiaRepository.findById(dto.getIdMateria());
+
+        if (materiaEnt == null) {
+            throw new Exception("La materia con id " + dto.getIdMateria() + " no existe");
+        }
+
+        Docente docenteEnt = docenteService.traerDocentePorId(dto.getIdDocente());
+
+        // Asignar el docente a la materia
+        materiaEnt.setDocente(docenteEnt);
+        docenteEnt.setMateria(materiaEnt);
+        materiaRepository.save(materiaEnt);
+
+        return true;
     }
 }
