@@ -83,11 +83,23 @@ public class MateriaController {
     }
 
     @PutMapping("/asignarDocente")
-    public ResponseEntity<Object> asignarEstudiante(@RequestBody MateriaAsignarDocenteDTO dto) {
+    public ResponseEntity<Object> asignarDocente(@RequestBody MateriaAsignarDocenteDTO dto) {
         try {
             materiaService.asignarDocenteAMateria(dto);
             return new ResponseEntity<>(
                     new Mensaje("Docente con id: "+dto.getIdDocente()+" agregado exitosamente a materia: "+dto.getIdMateria()),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/asignarDocentes")
+    public ResponseEntity<Object> asignarDocentes(@RequestBody List<MateriaAsignarDocenteDTO> dtos) {
+        try {
+            materiaService.asignarDocentesAMateria(dtos);
+            return new ResponseEntity<>(
+                    new Mensaje("Docentes agregados exitosamente"),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);

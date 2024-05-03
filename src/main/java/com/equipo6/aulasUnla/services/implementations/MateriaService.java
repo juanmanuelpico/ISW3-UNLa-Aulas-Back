@@ -173,11 +173,25 @@ public class MateriaService implements IMateriaService {
         }
 
         Docente docenteEnt = docenteService.traerDocentePorId(dto.getIdDocente());
+        if(docenteEnt.getMateria() != null) {
+            if(docenteEnt.getMateria().getId() == dto.getIdMateria()){
+                throw new Exception("El docente ya se encuentra asignado a la materia que intenta agregarlo");
+            }
+        }
 
         // Asignar el docente a la materia
         materiaEnt.setDocente(docenteEnt);
         docenteEnt.setMateria(materiaEnt);
         materiaRepository.save(materiaEnt);
+
+        return true;
+    }
+    //asignacion de docentes a muchas materias, 1 materia por docente
+    public boolean asignarDocentesAMateria(List<MateriaAsignarDocenteDTO> dtos) throws Exception {
+
+        for (MateriaAsignarDocenteDTO  dto : dtos) {
+            asignarDocenteAMateria(dto);
+        }
 
         return true;
     }
