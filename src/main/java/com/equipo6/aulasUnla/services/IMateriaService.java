@@ -12,20 +12,26 @@ import com.equipo6.aulasUnla.entities.Materia;
 public interface IMateriaService {
     List<MateriaDTOResponse> obtenerMateriasPorAnioConDocenteAulaEdificio(int anio) throws Exception;
 
+    public Materia obtenerMateria(String nombre, String turno) throws Exception;
+
     public Materia obtenerMateria(String nombre) throws Exception;
 
     public boolean crearMateria(MateriaDTORequest dto) throws Exception;
 
     public boolean crearMaterias(List<MateriaDTORequest> dtos) throws Exception;
 
+<<<<<<< HEAD
     public boolean agregarEstudiante(String materia, Integer idEstudiante) throws Exception;
 
     public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception;
 
+=======
+>>>>>>> rama_dev
     public List<MateriaDTOResponse> obtenerMaterias() throws Exception;
 
     public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception;
 
+    public void actualizarCantEstudiantes(Materia materia) throws Exception;
    
    
 }

@@ -3,6 +3,7 @@ package com.equipo6.aulasUnla.controller;
 import java.util.List;
 
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
+import com.equipo6.aulasUnla.services.IMateriaEstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ public class MateriaController {
 
     @Autowired
     private IMateriaService materiaService;
+
+    @Autowired
+    private IMateriaEstudianteService materiaEstudianteService;
 
     @GetMapping("/")
     public ResponseEntity<Object> obtenerMaterias() {
@@ -51,6 +55,7 @@ public class MateriaController {
         }
     }
 
+    /*
     @PutMapping("/asignarEstudiante/{nombreMateria}/{idEstudiante}")
     public ResponseEntity<Object> asiganarEstudiante(@PathVariable String nombreMateria,
             @PathVariable int idEstudiante) {
@@ -62,12 +67,12 @@ public class MateriaController {
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
     @PutMapping("/asignarEstudiantes")
     public ResponseEntity<Object> asignarEstudiante(@RequestBody MateriaAsignarUsuariosDTO dto) {
         try {
-            materiaService.agregarEstudiantes(dto);
+            materiaEstudianteService.asignarEstudiantesAMateria(dto);
             return new ResponseEntity<>(
                     new Mensaje("estudiantes agregados correctamente a materia: " + dto.getNombreMateria()),
                     HttpStatus.OK);

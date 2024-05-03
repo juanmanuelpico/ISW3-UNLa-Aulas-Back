@@ -21,7 +21,7 @@ public class Estudiante extends Persona{
     @Column(name = "cohorte")
     private int cohorte;
 
-    @ManyToMany(mappedBy = "estudiantes")
-    private Set<Materia> materias = new HashSet<>();
+    @OneToMany(mappedBy = "estudiante")
+    private Set<MateriaEstudiante> materiaEstudianteList;
 
 }

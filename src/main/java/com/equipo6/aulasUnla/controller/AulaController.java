@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
+import com.equipo6.aulasUnla.entities.Materia;
 import com.equipo6.aulasUnla.services.IAulaService;
 import com.equipo6.aulasUnla.util.Mensaje;
 
@@ -36,11 +37,11 @@ public class AulaController {
         }
     }
 
-    @PostMapping("/asignarMateriaAula/{idAula}/{nombreMateria}")
+    @PostMapping("/{idAula}/asignarMateriaAula/{nombreMateria}")
     public ResponseEntity<Object> asignarMateriaAula(@PathVariable int idAula, @PathVariable String nombreMateria){
         try {
-            boolean materiaAsignada = aulaService.asignarMateriaAAula(idAula, nombreMateria);
-            return new ResponseEntity<>(new Mensaje("Materia: "+nombreMateria+", asignada a aula con id: "+idAula+" exitosamente"), HttpStatus.OK);
+            Materia materiaAsignada = aulaService.asignarMateriaAAula(idAula, nombreMateria);
+            return new ResponseEntity<>(materiaAsignada, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
         }

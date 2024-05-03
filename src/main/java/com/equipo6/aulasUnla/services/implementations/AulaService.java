@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.equipo6.aulasUnla.dtos.request.AulaDTORequest;
 import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
 import com.equipo6.aulasUnla.entities.Aula;
 import com.equipo6.aulasUnla.entities.Materia;
@@ -38,10 +37,10 @@ public class AulaService implements IAulaService{
        }
        List<Aula> aulas = null;
 
-       if(turno == "TM"){
+       if(turno.equals("TM")){
         aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes);
        }
-       else if(turno == "TN"){
+       else if(turno.equals("TN")){
         aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes);
        }
        
@@ -49,7 +48,7 @@ public class AulaService implements IAulaService{
     }
 
     @Override
-    public boolean asignarMateriaAAula(int idAula, String nombreMateria) throws Exception {
+    public Materia asignarMateriaAAula(int idAula, String nombreMateria) throws Exception {
         Aula aula = aulaRepository.findById(idAula);
         if(aula == null){
             throw new Exception("Error, el aula con id: "+idAula+" no existe");
@@ -71,7 +70,7 @@ public class AulaService implements IAulaService{
         //guardo el aula
         aulaRepository.save(aula);
         
-       return true;
+       return materia;
     }
 
     @Override
