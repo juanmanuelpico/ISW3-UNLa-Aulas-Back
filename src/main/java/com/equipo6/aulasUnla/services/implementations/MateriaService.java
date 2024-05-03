@@ -57,53 +57,29 @@ public class MateriaService implements IMateriaService {
 
     //se crea este metodo por si tenemos algun problema y debemos asiganar un solo alumno a una sola materia
     @Override
-    public boolean agregarEstudiante(String materia, int idEstudiante) throws Exception {
+    public boolean agregarEstudiante(String materia, Integer idEstudiante) throws Exception {
        Materia materiaE = materiaRepository.findByNombre(materia);
        if(materiaE == null){
             throw new Exception("Error, la materia llamada: "+materia+", no existe");
        }
-
        //se obtiene el estudiante(la excepcion la tirará en su respectivo service)
        Estudiante estudiante = estudianteService.obtenerEstudianteId(idEstudiante);
-
        //se agrega ese estudiante a la materia
        materiaE.getEstudiantes().add(estudiante);
        //se setea el valor de la cantidad de estudiantes
        materiaE.setCantEstudiantes(materiaE.getEstudiantes().size());
+
        materiaRepository.save(materiaE);
-
-        return true;
+       return true;
     }
 
-    //se crea este metodo para ser utilizado en la carga masiva
-    @Override
-    public boolean agregarEstudiante(Materia materia, int idEstudiante) throws Exception {
-        Estudiante estudiante = estudianteService.obtenerEstudianteId(idEstudiante);
-
-        materia.getEstudiantes().add(estudiante);
-        materia.setCantEstudiantes(materia.getEstudiantes().size()); //asigna el tamaño actual de la lista
-        materiaRepository.save(materia);
- 
-         return true;
-    }
-    
    //carga masiva de estudiantes en una materia
     @Override
     public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception {
-        //obtenemos la materia a asiganr
-        Materia materia = materiaRepository.findByNombre(dto.getNombreMateria());
-
-        if(materia == null){
-             throw new Exception("Error, la materia llamada: "+materia+", no existe");
-        }
-        boolean retorno = false;
-        //se agrega cada estudiante en la materia
-       for (int id : dto.getIdEstudiantes()) {
-          retorno = agregarEstudiante(materia, id);  
+       for (Integer idEstudiante : dto.getIdEstudiantes()) {
+          agregarEstudiante(dto.getNombreMateria(), idEstudiante);
        }
-
-       return retorno
-       ;
+       return true;
     }
 
     @Override

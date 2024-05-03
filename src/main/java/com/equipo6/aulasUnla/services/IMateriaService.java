@@ -18,9 +18,7 @@ public interface IMateriaService {
 
     public boolean crearMaterias(List<MateriaDTORequest> dtos) throws Exception;
 
-    public boolean agregarEstudiante(String materia, int idEstudiante) throws Exception;
-
-    public boolean agregarEstudiante(Materia materia, int idEstudiante) throws Exception;
+    public boolean agregarEstudiante(String materia, Integer idEstudiante) throws Exception;
 
     public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception;
 
