@@ -18,7 +18,7 @@ public class MateriaDTOResponse {
 
     private int anioPertenece;
 
-    private int cantidadEstudiantes;
+    private int cantEstudiantes;
 
     private String docenteACargo;
 

@@ -10,8 +10,6 @@ public interface IEstudianteService {
 
     public boolean crearEstudiante(EstudianteDTORequest dto) throws Exception;
     public boolean crearEstudiante(Estudiante estudiante) throws Exception;
-
-
     public boolean crearEstudiantes(List<EstudianteDTORequest> dtos) throws Exception;
 
     public List<EstudianteDTOResponse> obtenerEstudiantes() throws Exception;

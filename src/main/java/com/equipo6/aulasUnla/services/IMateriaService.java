@@ -20,18 +20,10 @@ public interface IMateriaService {
 
     public boolean crearMaterias(List<MateriaDTORequest> dtos) throws Exception;
 
-<<<<<<< HEAD
-    public boolean agregarEstudiante(String materia, Integer idEstudiante) throws Exception;
-
-    public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception;
-
-=======
->>>>>>> rama_dev
     public List<MateriaDTOResponse> obtenerMaterias() throws Exception;
 
     public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception;
 
     public void actualizarCantEstudiantes(Materia materia) throws Exception;
-   
-   
+
 }

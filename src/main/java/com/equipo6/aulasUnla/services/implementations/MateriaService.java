@@ -26,23 +26,22 @@ public class MateriaService implements IMateriaService {
     @Autowired
     private MateriaRepository materiaRepository;
 
-
     @Autowired
     private IEstudianteService estudianteService;
 
     @Autowired(required = true)
     private ModelMapper modelMapper;
-    
+
     @Override
     public boolean crearMateria(MateriaDTORequest dto) throws Exception {
-        
+
         if(materiaRepository.findMateriaByNombreAndTurno(dto.getNombre(), dto.getTurno()) != null){
             throw new Exception("Error, ya existe la materia en ese turno");
         }
 
         Materia materia = modelMapper.map(dto, Materia.class);
         materiaRepository.save(materia);
-      return true;
+        return true;
     }
 
     @Override
@@ -53,38 +52,12 @@ public class MateriaService implements IMateriaService {
             try {
                 retorno = crearMateria(dto);
             } catch (Exception e) {
-              System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
         return retorno;
     }
 
-    //se crea este metodo por si tenemos algun problema y debemos asiganar un solo alumno a una sola materia
-    @Override
-    public boolean agregarEstudiante(String materia, Integer idEstudiante) throws Exception {
-       Materia materiaE = materiaRepository.findByNombre(materia);
-       if(materiaE == null){
-            throw new Exception("Error, la materia llamada: "+materia+", no existe");
-       }
-       //se obtiene el estudiante(la excepcion la tirará en su respectivo service)
-       Estudiante estudiante = estudianteService.obtenerEstudianteId(idEstudiante);
-       //se agrega ese estudiante a la materia
-       materiaE.getEstudiantes().add(estudiante);
-       //se setea el valor de la cantidad de estudiantes
-       materiaE.setCantEstudiantes(materiaE.getEstudiantes().size());
-
-       materiaRepository.save(materiaE);
-       return true;
-    }
-
-   //carga masiva de estudiantes en una materia
-    @Override
-    public boolean agregarEstudiantes(MateriaAsignarUsuariosDTO dto) throws Exception {
-       for (Integer idEstudiante : dto.getIdEstudiantes()) {
-          agregarEstudiante(dto.getNombreMateria(), idEstudiante);
-       }
-       return true;
-    }
 
     @Override
     public List<MateriaDTOResponse> obtenerMaterias() throws Exception{
@@ -169,13 +142,13 @@ public class MateriaService implements IMateriaService {
 
     @Override
     public Materia obtenerMateria(String nombre, String turno) throws Exception {
-       Materia materia = materiaRepository.findMateriaByNombreAndTurno(nombre, turno);
+        Materia materia = materiaRepository.findMateriaByNombreAndTurno(nombre, turno);
 
-       if(materia == null){
-        throw new Exception("Error, la materia con nombre : "+nombre+", no existe");
-       }
+        if(materia == null){
+            throw new Exception("Error, la materia con nombre : "+nombre+", no existe");
+        }
 
-       return materia;
+        return materia;
     }
 
     @Override
@@ -188,9 +161,4 @@ public class MateriaService implements IMateriaService {
 
         return materia;
     }
-   
-
-  
-
-
 }
