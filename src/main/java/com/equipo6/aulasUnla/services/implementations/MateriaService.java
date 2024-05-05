@@ -103,6 +103,31 @@ public class MateriaService implements IMateriaService {
     }
 
     @Override
+    public MateriaDTOResponse tranformarADto(Materia materia) throws Exception {
+        MateriaDTOResponse dto = modelMapper.map(materia, MateriaDTOResponse.class);
+
+        if(materia.getDocente() != null) {
+            dto.setDocenteACargo(materia.getDocente().getNombre()); // Setear el nombre del docente
+        }else{
+            dto.setDocenteACargo("Sin asignar");
+        }
+        if(materia.getAula() != null) {
+            dto.setAulaAsignada(materia.getAula().getNumero()); // Setear el número del aula
+        }else{
+            dto.setAulaAsignada(0);
+        }
+        if(materia.getAula() != null) {
+            if(materia.getAula().getEdificio() != null){
+                dto.setEdificio(materia.getAula().getEdificio().getNombre()); // Setear el nombre del edificio
+            }
+        }else {
+            dto.setEdificio("Sin asignar");
+        }
+
+        return dto;
+    }
+
+    @Override
     public void actualizarCantEstudiantes(Materia materia) throws Exception {
         materia.setCantEstudiantes(materia.getMateriaEstudianteList().size());
         materiaRepository.save(materia);

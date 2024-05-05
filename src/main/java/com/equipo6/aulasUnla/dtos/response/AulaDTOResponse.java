@@ -38,4 +38,6 @@ public class AulaDTOResponse {
  
     private String tipoDeAula;
 
+    private String edificio;
+
 }
