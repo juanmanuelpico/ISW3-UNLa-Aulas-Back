@@ -1,8 +1,10 @@
 package com.equipo6.aulasUnla.services.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,30 +33,37 @@ public class AulaService implements IAulaService{
     private IMateriaService materiaService;
 
     @Override
-    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno) throws Exception {
-       if(turno.isBlank() || turno.isEmpty() || (turno != "TN" && turno !="TM")){
+    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno, String tipo) throws Exception {
+       if(turno.isBlank() || turno.isEmpty() || (!turno.equals("TN") && !turno.equals("TM"))){
         throw new Exception("Error, el turno es invalido");
        }
        List<Aula> aulas = null;
 
        if(turno.equals("TM")){
-        aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes);
+        aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes, tipo);
        }
        else if(turno.equals("TN")){
-        aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes);
+        aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes, tipo);
        }
-       
-       return aulas.stream().map(aula -> modelMapper.map(aula, AulaDTOResponse.class)).collect(Collectors.toList());
+        List<AulaDTOResponse> dtos = new ArrayList<>();
+
+        for(Aula aula : aulas){
+            AulaDTOResponse dto = modelMapper.map(aula, AulaDTOResponse.class);
+            dto.setEdificio(aula.getEdificio().getNombre());
+            dtos.add(dto);
+        }
+       return dtos;
     }
 
+    //Devuelve un response de materia, para actualizar el listado de materias con la materia editada en el front
     @Override
-    public Materia asignarMateriaAAula(int idAula, String nombreMateria) throws Exception {
+    public MateriaDTOResponse asignarMateriaAAula(int idAula, String nombreMateria, String turno) throws Exception {
         Aula aula = aulaRepository.findById(idAula);
         if(aula == null){
             throw new Exception("Error, el aula con id: "+idAula+" no existe");
         }
-        //se trae la materia por el nombre
-        Materia materia = materiaService.obtenerMateria(nombreMateria);
+        //se trae la materia por el nombre y turno
+        Materia materia = materiaService.obtenerMateria(nombreMateria, turno);
         //se asigna la materia al aula
 
         aula.getMaterias().add(materia);
@@ -70,7 +79,7 @@ public class AulaService implements IAulaService{
         //guardo el aula
         aulaRepository.save(aula);
         
-       return materia;
+       return materiaService.tranformarADto(materia);
     }
 
     @Override
@@ -85,14 +94,15 @@ public class AulaService implements IAulaService{
       return true;
     }
 
+    //Devuelve un response de materia, para actualizar el listado de materias con la materia editada en el front
     @Override
-    public boolean desasignarMateriaAAula(int idAula, String nombreMateria) throws Exception {
+    public MateriaDTOResponse desasignarMateriaAAula(int idAula, String nombreMateria, String turno) throws Exception {
         Aula aula = aulaRepository.findById(idAula);
         if(aula == null){
             throw new Exception("Error, el aula con id: "+idAula+" no existe");
         }
-        //se trae la materia por el nombre
-        Materia materia = materiaService.obtenerMateria(nombreMateria);
+        //se trae la materia por el nombre y turno
+        Materia materia = materiaService.obtenerMateria(nombreMateria, turno);
         //se elimina la materia al aula
         aula.getMaterias().remove(materia);
         
@@ -105,8 +115,8 @@ public class AulaService implements IAulaService{
         }
         //guardo el aula
         aulaRepository.save(aula);
-        
-       return true;
+
+        return materiaService.tranformarADto(materia);
     }
 
 }

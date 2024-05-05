@@ -27,6 +27,8 @@ public interface IMateriaService {
 
     public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception;
 
+    public MateriaDTOResponse tranformarADto(Materia materia) throws Exception;
+
     public void actualizarCantEstudiantes(Materia materia) throws Exception;
 
 }
