@@ -24,5 +24,7 @@ public class MateriaDTOResponse {
 
     private int aulaAsignada;
 
+    private String tipoDeAula;
+
     private String edificio;
 }

@@ -126,8 +126,10 @@ public class MateriaService implements IMateriaService {
             }
             if(m.getAula() != null) {
                 mDto.setAulaAsignada(m.getAula().getNumero()); // Setear el número del aula
+                mDto.setTipoDeAula(m.getAula().getTipoDeAula()); // Setear el tipo de aula
             }else{
                 mDto.setAulaAsignada(0);
+                mDto.setTipoDeAula("Sin asignar");
             }
             if(m.getAula() != null) {
                 if(m.getAula().getEdificio() != null){
