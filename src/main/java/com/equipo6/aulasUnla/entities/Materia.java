@@ -29,6 +29,9 @@ public class Materia {
     @Column(name = "turno")
     private String turno; //Indicar TM(turno mañana) o TN(turno nocturno)
 
+    @Column(name = "dia")
+    private String dia;
+
     @Column(name = "aula_asignada")
     private boolean aulaAsignada;
 

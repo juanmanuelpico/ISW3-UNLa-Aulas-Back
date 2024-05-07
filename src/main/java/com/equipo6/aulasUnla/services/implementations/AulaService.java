@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
@@ -33,18 +34,15 @@ public class AulaService implements IAulaService{
     private IMateriaService materiaService;
 
     @Override
-    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno, String tipo) throws Exception {
+    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno, String tipo, String dia) throws Exception {
        if(turno.isBlank() || turno.isEmpty() || (!turno.equals("TN") && !turno.equals("TM"))){
         throw new Exception("Error, el turno es invalido");
        }
        List<Aula> aulas = null;
 
-       if(turno.equals("TM")){
-        aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes, tipo);
-       }
-       else if(turno.equals("TN")){
-        aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes, tipo);
-       }
+
+        aulas = aulaRepository.findAulasForMateriaAndTurnoAndDia(cantEstudiantes, turno, tipo, dia);
+
         List<AulaDTOResponse> dtos = new ArrayList<>();
 
         for(Aula aula : aulas){
