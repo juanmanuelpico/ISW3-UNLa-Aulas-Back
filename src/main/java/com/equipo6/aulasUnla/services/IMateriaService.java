@@ -6,11 +6,12 @@ import java.util.List;
 import com.equipo6.aulasUnla.dtos.request.MateriaAsignarDocenteDTO;
 import com.equipo6.aulasUnla.dtos.request.MateriaDTORequest;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
+import com.equipo6.aulasUnla.dtos.response.MateriaDetalladaDTOResponse;
 import com.equipo6.aulasUnla.entities.Materia;
 
 public interface IMateriaService {
     List<MateriaDTOResponse> obtenerMateriasPorAnioConDocenteAulaEdificio(int anio) throws Exception;
-
+    public MateriaDetalladaDTOResponse tranformarAMateriaDetalladaDTO(Materia materia) throws Exception;
     public Materia obtenerMateria(String nombre, String turno) throws Exception;
 
     public Materia obtenerMateria(String nombre) throws Exception;

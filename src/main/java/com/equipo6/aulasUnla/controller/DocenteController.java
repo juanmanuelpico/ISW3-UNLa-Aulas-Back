@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/docentes")
-@CrossOrigin(origins = "http://localhost:3000") // Permitir solicitudes desde localhost:3000
+ // Permitir solicitudes desde localhost:3000
 
 public class DocenteController {
 

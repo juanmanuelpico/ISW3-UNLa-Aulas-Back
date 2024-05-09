@@ -1,18 +1,22 @@
 package com.equipo6.aulasUnla.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.equipo6.aulasUnla.dtos.request.UsuarioDTOLogin;
 import com.equipo6.aulasUnla.dtos.request.UsuarioDTORequest;
 import com.equipo6.aulasUnla.dtos.response.UsuarioDTOResponse;
 import com.equipo6.aulasUnla.services.IUsuarioService;
 import com.equipo6.aulasUnla.util.Mensaje;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuario")
-@CrossOrigin(origins = "http://localhost:3000") // Permitir solicitudes desde localhost:3000
+ // Permitir solicitudes desde localhost:3000
 public class UsuarioController {
 
     @Autowired

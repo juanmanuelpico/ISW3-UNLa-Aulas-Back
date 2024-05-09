@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import com.equipo6.aulasUnla.dtos.request.MateriaAsignarDocenteDTO;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
+import com.equipo6.aulasUnla.dtos.response.MateriaDetalladaDTOResponse;
+import com.equipo6.aulasUnla.dtos.response.MateriaEstudianteDTO;
 import com.equipo6.aulasUnla.entities.Docente;
 import com.equipo6.aulasUnla.services.IDocenteService;
 import org.modelmapper.ModelMapper;
@@ -38,7 +40,7 @@ public class MateriaService implements IMateriaService {
     @Override
     public boolean crearMateria(MateriaDTORequest dto) throws Exception {
 
-        if(materiaRepository.findMateriaByNombreAndTurno(dto.getNombre(), dto.getTurno()) != null){
+        if (materiaRepository.findMateriaByNombreAndTurno(dto.getNombre(), dto.getTurno()) != null) {
             throw new Exception("Error, ya existe la materia en ese turno");
         }
 
@@ -51,7 +53,7 @@ public class MateriaService implements IMateriaService {
     public boolean crearMaterias(List<MateriaDTORequest> dtos) throws Exception {
         boolean retorno = false;
         for (MateriaDTORequest dto : dtos) {
-//crea todas las materias, excepto las que no cumplen con las condiciones
+            // crea todas las materias, excepto las que no cumplen con las condiciones
             try {
                 retorno = crearMateria(dto);
             } catch (Exception e) {
@@ -62,31 +64,13 @@ public class MateriaService implements IMateriaService {
     }
 
     @Override
-    public List<MateriaDTOResponse> obtenerMaterias() throws Exception{
+    public List<MateriaDTOResponse> obtenerMaterias() throws Exception {
 
         List<Materia> materiasObtenidas = materiaRepository.findAll();
         List<MateriaDTOResponse> materiasResponse = new ArrayList<>();
 
         for (Materia m : materiasObtenidas) {
-            MateriaDTOResponse mDto = modelMapper.map(m, MateriaDTOResponse.class); // Crear el DTO a partir de la materia
-
-            if(m.getDocente() != null) {
-                mDto.setDocenteACargo(m.getDocente().getNombre()); // Setear el nombre del docente
-            }else{
-                mDto.setDocenteACargo("Sin asignar");
-            }
-            if(m.getAula() != null) {
-                mDto.setAulaAsignada(m.getAula().getNumero()); // Setear el número del aula
-            }else{
-                mDto.setAulaAsignada(0);
-            }
-            if(m.getAula() != null) {
-                if(m.getAula().getEdificio() != null){
-                    mDto.setEdificio(m.getAula().getEdificio().getNombre()); // Setear el nombre del edificio
-                }
-            }else {
-                mDto.setEdificio("Sin asignar");
-            }
+            MateriaDTOResponse mDto = tranformarADto(m);
             materiasResponse.add(mDto); // Agregar el DTO modificado a la lista de respuesta
         }
         return materiasResponse;
@@ -95,32 +79,33 @@ public class MateriaService implements IMateriaService {
 
     @Override
     public List<MateriaDTOResponse> obtenerMateriasPorAnio(int anio) throws Exception {
-        if(anio < 0 || anio > 5){
+        if (anio < 0 || anio > 5) {
             throw new Exception("Error, numero de anio invalido, solo se puede del 1 al 5");
         }
 
-        return materiaRepository.findByAnio(anio).stream().map(materia -> modelMapper.map(materia, MateriaDTOResponse.class)).collect(Collectors.toList());
+        return materiaRepository.findByAnio(anio).stream()
+                .map(materia -> modelMapper.map(materia, MateriaDTOResponse.class)).collect(Collectors.toList());
     }
 
     @Override
     public MateriaDTOResponse tranformarADto(Materia materia) throws Exception {
         MateriaDTOResponse dto = modelMapper.map(materia, MateriaDTOResponse.class);
 
-        if(materia.getDocente() != null) {
-            dto.setDocenteACargo(materia.getDocente().getNombre()); // Setear el nombre del docente
-        }else{
+        if (materia.getDocente() != null) {
+            dto.setDocenteACargo(materia.getDocente().getApellido() + materia.getDocente().getNombre()); // Setear el nombre del docente
+        } else {
             dto.setDocenteACargo("Sin asignar");
         }
-        if(materia.getAula() != null) {
+        if (materia.getAula() != null) {
             dto.setAulaAsignada(materia.getAula().getNumero()); // Setear el número del aula
-        }else{
+        } else {
             dto.setAulaAsignada(0);
         }
-        if(materia.getAula() != null) {
-            if(materia.getAula().getEdificio() != null){
+        if (materia.getAula() != null) {
+            if (materia.getAula().getEdificio() != null) {
                 dto.setEdificio(materia.getAula().getEdificio().getNombre()); // Setear el nombre del edificio
             }
-        }else {
+        } else {
             dto.setEdificio("Sin asignar");
         }
 
@@ -142,25 +127,29 @@ public class MateriaService implements IMateriaService {
         List<MateriaDTOResponse> materiasResponse = new ArrayList<>();
 
         for (Materia m : materiasObtenidas) {
-            MateriaDTOResponse mDto = modelMapper.map(m, MateriaDTOResponse.class); // Crear el DTO a partir de la materia
+            MateriaDTOResponse mDto = modelMapper.map(m, MateriaDTOResponse.class); // Crear el DTO a partir de la
+                                                                                    // materia
 
-            if(m.getDocente() != null) {
-                mDto.setDocenteACargo(m.getDocente().getNombre()+" "+m.getDocente().getApellido()); // Setear el nombre del docente con apellido
-            }else{
+            if (m.getDocente() != null) {
+                mDto.setDocenteACargo(m.getDocente().getNombre() + " " + m.getDocente().getApellido()); // Setear el
+                                                                                                        // nombre del
+                                                                                                        // docente con
+                                                                                                        // apellido
+            } else {
                 mDto.setDocenteACargo("Sin asignar");
             }
-            if(m.getAula() != null) {
+            if (m.getAula() != null) {
                 mDto.setAulaAsignada(m.getAula().getNumero()); // Setear el número del aula
                 mDto.setTipoDeAula(m.getAula().getTipoDeAula()); // Setear el tipo de aula
-            }else{
+            } else {
                 mDto.setAulaAsignada(0);
                 mDto.setTipoDeAula("Sin asignar");
             }
-            if(m.getAula() != null) {
-                if(m.getAula().getEdificio() != null){
+            if (m.getAula() != null) {
+                if (m.getAula().getEdificio() != null) {
                     mDto.setEdificio(m.getAula().getEdificio().getNombre()); // Setear el nombre del edificio
                 }
-            }else {
+            } else {
                 mDto.setEdificio("Sin asignar");
             }
             materiasResponse.add(mDto); // Agregar el DTO modificado a la lista de respuesta
@@ -168,24 +157,31 @@ public class MateriaService implements IMateriaService {
         return materiasResponse;
     }
 
-
     @Override
     public Materia obtenerMateria(String nombre, String turno) throws Exception {
         Materia materia = materiaRepository.findMateriaByNombreAndTurno(nombre, turno);
 
-        if(materia == null){
-            throw new Exception("Error, la materia con nombre : "+nombre+", no existe");
+        if (materia == null) {
+            throw new Exception("Error, la materia con nombre : " + nombre + ", no existe");
         }
 
         return materia;
+    }
+
+    public MateriaDetalladaDTOResponse tranformarAMateriaDetalladaDTO(Materia materia) throws Exception {
+        MateriaDetalladaDTOResponse materiaDetalladaDTO =  modelMapper.map(tranformarADto(materia), MateriaDetalladaDTOResponse.class);
+        List<MateriaEstudianteDTO> materiaEstudianteDTOs = materia.getMateriaEstudianteList().stream()
+                .map(m -> modelMapper.map(m, MateriaEstudianteDTO.class)).collect(Collectors.toList());
+        materiaDetalladaDTO.setMateriaEstudianteList(materiaEstudianteDTOs);
+        return materiaDetalladaDTO;
     }
 
     @Override
     public Materia obtenerMateria(String nombre) throws Exception {
         Materia materia = materiaRepository.findByNombre(nombre);
 
-        if(materia == null){
-            throw new Exception("Error, la materia con nombre : "+nombre+", no existe");
+        if (materia == null) {
+            throw new Exception("Error, la materia con nombre : " + nombre + ", no existe");
         }
 
         return materia;
@@ -200,8 +196,8 @@ public class MateriaService implements IMateriaService {
         }
 
         Docente docenteEnt = docenteService.traerDocentePorId(dto.getIdDocente());
-        if(docenteEnt.getMateria() != null) {
-            if(docenteEnt.getMateria().getId() == dto.getIdMateria()){
+        if (docenteEnt.getMateria() != null) {
+            if (docenteEnt.getMateria().getId() == dto.getIdMateria()) {
                 throw new Exception("El docente ya se encuentra asignado a la materia que intenta agregarlo");
             }
         }
@@ -213,10 +209,11 @@ public class MateriaService implements IMateriaService {
 
         return true;
     }
-    //asignacion de docentes a muchas materias, 1 materia por docente
+
+    // asignacion de docentes a muchas materias, 1 materia por docente
     public boolean asignarDocentesAMateria(List<MateriaAsignarDocenteDTO> dtos) throws Exception {
 
-        for (MateriaAsignarDocenteDTO  dto : dtos) {
+        for (MateriaAsignarDocenteDTO dto : dtos) {
             asignarDocenteAMateria(dto);
         }
 

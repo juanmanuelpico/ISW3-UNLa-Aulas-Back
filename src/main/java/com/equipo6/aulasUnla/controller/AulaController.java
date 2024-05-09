@@ -2,11 +2,9 @@ package com.equipo6.aulasUnla.controller;
 
 import java.util.List;
 
-import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
-import com.equipo6.aulasUnla.entities.Materia;
+import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import com.equipo6.aulasUnla.services.IAulaService;
 import com.equipo6.aulasUnla.util.Mensaje;
 
 @RestController
 @RequestMapping("/aula")
-@CrossOrigin(origins = "http://localhost:3000")
+
 
 public class AulaController {
 
