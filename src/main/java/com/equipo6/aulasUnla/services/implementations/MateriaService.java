@@ -92,7 +92,7 @@ public class MateriaService implements IMateriaService {
         MateriaDTOResponse dto = modelMapper.map(materia, MateriaDTOResponse.class);
 
         if (materia.getDocente() != null) {
-            dto.setDocenteACargo(materia.getDocente().getApellido() + materia.getDocente().getNombre()); // Setear el nombre del docente
+            dto.setDocenteACargo(materia.getDocente().getApellido() + " " + materia.getDocente().getNombre()); // Setear el nombre del docente
         } else {
             dto.setDocenteACargo("Sin asignar");
         }
