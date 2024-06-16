@@ -8,7 +8,7 @@ import com.equipo6.aulasUnla.entities.Materia;
 
 public interface IAulaService {
     
-    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno, String tipo, String dia) throws Exception;
+    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno, String tipo) throws Exception;
 
     public MateriaDTOResponse asignarMateriaAAula(int idAula, String nombreMateria, String turno) throws Exception;
 

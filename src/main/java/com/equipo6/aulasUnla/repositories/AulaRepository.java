@@ -23,9 +23,13 @@ public interface AulaRepository extends JpaRepository<Aula, Integer>{
 
     //QUERY DEFINITIVA TENIENDO EN CUENTA QUE UN AULA PUEDE SER OCUPADA TODOS LOS DIAS DE LA SEMANA EN AMBOS TUROS
         @Query(value = "SELECT a.* FROM aula a " +
-            "WHERE a.id_aula NOT IN (SELECT m.id_aula FROM materia m WHERE m.dia = :dia AND m.turno = :turno)" +
+            "WHERE ocupado_tm = 0" +
             " AND a.capacidad >= :cant AND a.tipo_de_aula = :tipo", nativeQuery = true)
-    List<Aula> findAulasForMateriaAndTurnoAndDia(@Param("cant")int cantEstudiantes,  @Param("turno") String turno,  @Param("tipo") String tipo, @Param("dia") String dia);
+    List<Aula> findAulasForMateriaTM(@Param("cant")int cantEstudiantes, @Param("tipo") String tipo);
+    @Query(value = "SELECT a.* FROM aula a " +
+            "WHERE ocupado_tn = 0" +
+            " AND a.capacidad >= :cant AND a.tipo_de_aula = :tipo", nativeQuery = true)
+    List<Aula> findAulasForMateriaTN(@Param("cant")int cantEstudiantes, @Param("tipo") String tipo);
 
 
 

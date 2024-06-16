@@ -26,10 +26,10 @@ public class AulaController {
     @Autowired
     private IAulaService aulaService;
 
-    @GetMapping("/traer/{cantidadEstudiantes}/{turno}/{tipo}/{dia}")
-    public ResponseEntity<Object> obtenerListadoAulasDisponiblesEnTurno(@PathVariable int cantidadEstudiantes, @PathVariable String turno, @PathVariable String tipo, @PathVariable String dia){
+    @GetMapping("/traer/{cantidadEstudiantes}/{turno}/{tipo}")
+    public ResponseEntity<Object> obtenerListadoAulasDisponiblesEnTurno(@PathVariable int cantidadEstudiantes, @PathVariable String turno, @PathVariable String tipo){
         try {
-            List<AulaDTOResponse> aulasDto = aulaService.obtenerListadoAulas(cantidadEstudiantes, turno, tipo, dia);
+            List<AulaDTOResponse> aulasDto = aulaService.obtenerListadoAulas(cantidadEstudiantes, turno, tipo);
             return new ResponseEntity<>(aulasDto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);

@@ -34,14 +34,19 @@ public class AulaService implements IAulaService{
     private IMateriaService materiaService;
 
     @Override
-    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno, String tipo, String dia) throws Exception {
+    public List<AulaDTOResponse> obtenerListadoAulas(int cantEstudiantes, String turno, String tipo) throws Exception {
        if(turno.isBlank() || turno.isEmpty() || (!turno.equals("TN") && !turno.equals("TM"))){
         throw new Exception("Error, el turno es invalido");
        }
        List<Aula> aulas = null;
 
+        //dependiendo el turno se ejecuta una query
+        if(turno.equals("TM")){
+            aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes, tipo);
+        } else if (turno.equals("TN")) {
+            aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes, tipo);
+        }
 
-        aulas = aulaRepository.findAulasForMateriaAndTurnoAndDia(cantEstudiantes, turno, tipo, dia);
 
         List<AulaDTOResponse> dtos = new ArrayList<>();
 
