@@ -108,12 +108,13 @@ public class AulaService implements IAulaService{
         Materia materia = materiaService.obtenerMateria(nombreMateria, turno);
         //se elimina la materia al aula
         aula.getMaterias().remove(materia);
+        materia.setAula(null);
         
         //dependiendo el turno al que pertenece la materia que se asigna, se desocupa en el aula
-        if(materia.getTurno() == "TM"){
+        if(materia.getTurno().equals("TM")){
             aula.setOcupadoTM(false);
         }
-        else if(materia.getTurno() == "TN"){
+        else if(materia.getTurno().equals("TN")){
             aula.setOcupadoTN(false);
         }
         //guardo el aula

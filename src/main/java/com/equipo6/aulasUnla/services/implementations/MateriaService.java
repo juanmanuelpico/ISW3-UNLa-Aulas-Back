@@ -98,6 +98,7 @@ public class MateriaService implements IMateriaService {
         }
         if (materia.getAula() != null) {
             dto.setAulaAsignada(materia.getAula().getNumero()); // Setear el número del aula
+            dto.setIdAulaAsignada(materia.getAula().getId()); // Setear el id del aula
         } else {
             dto.setAulaAsignada(0);
         }

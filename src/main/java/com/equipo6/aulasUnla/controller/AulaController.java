@@ -57,7 +57,7 @@ public class AulaController {
         }
     }
     //desasigna unicamente la materia del aula recibido por parametro
-    @DeleteMapping("/desasignarMateria/{idAula}/{nombreMateria}/{turnoMateria}")
+    @DeleteMapping("/desasignarMateria/{idAula}/{nombreMateria}/{turno}")
     public ResponseEntity<Object> desasiganarMateria(@PathVariable int idAula, @PathVariable String nombreMateria , @PathVariable String turno){
         try {
             MateriaDTOResponse materiaDesasignada = aulaService.desasignarMateriaAAula(idAula, nombreMateria, turno);
