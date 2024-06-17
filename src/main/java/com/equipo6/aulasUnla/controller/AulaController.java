@@ -26,8 +26,8 @@ public class AulaController {
     @Autowired
     private IAulaService aulaService;
 
-    @GetMapping("/traer/{turno}/{cantidadEstudiantes}/{tipo}")
-    public ResponseEntity<Object> obtenerListadoAulasDisponiblesEnTurno(@PathVariable String turno, @PathVariable int cantidadEstudiantes, @PathVariable String tipo){
+    @GetMapping("/traer/{cantidadEstudiantes}/{turno}/{tipo}")
+    public ResponseEntity<Object> obtenerListadoAulasDisponiblesEnTurno(@PathVariable int cantidadEstudiantes, @PathVariable String turno, @PathVariable String tipo){
         try {
             List<AulaDTOResponse> aulasDto = aulaService.obtenerListadoAulas(cantidadEstudiantes, turno, tipo);
             return new ResponseEntity<>(aulasDto, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class AulaController {
         }
     }
     //desasigna unicamente la materia del aula recibido por parametro
-    @DeleteMapping("/desasignarMateria/{idAula}/{nombreMateria}/{turnoMateria}")
+    @DeleteMapping("/desasignarMateria/{idAula}/{nombreMateria}/{turno}")
     public ResponseEntity<Object> desasiganarMateria(@PathVariable int idAula, @PathVariable String nombreMateria , @PathVariable String turno){
         try {
             MateriaDTOResponse materiaDesasignada = aulaService.desasignarMateriaAAula(idAula, nombreMateria, turno);

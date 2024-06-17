@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.equipo6.aulasUnla.dtos.response.MateriaDTOResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.equipo6.aulasUnla.dtos.response.AulaDTOResponse;
@@ -39,12 +40,14 @@ public class AulaService implements IAulaService{
        }
        List<Aula> aulas = null;
 
-       if(turno.equals("TM")){
-        aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes, tipo);
-       }
-       else if(turno.equals("TN")){
-        aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes, tipo);
-       }
+        //dependiendo el turno se ejecuta una query
+        if(turno.equals("TM")){
+            aulas = aulaRepository.findAulasForMateriaTM(cantEstudiantes, tipo);
+        } else if (turno.equals("TN")) {
+            aulas = aulaRepository.findAulasForMateriaTN(cantEstudiantes, tipo);
+        }
+
+
         List<AulaDTOResponse> dtos = new ArrayList<>();
 
         for(Aula aula : aulas){
@@ -105,12 +108,13 @@ public class AulaService implements IAulaService{
         Materia materia = materiaService.obtenerMateria(nombreMateria, turno);
         //se elimina la materia al aula
         aula.getMaterias().remove(materia);
+        materia.setAula(null);
         
         //dependiendo el turno al que pertenece la materia que se asigna, se desocupa en el aula
-        if(materia.getTurno() == "TM"){
+        if(materia.getTurno().equals("TM")){
             aula.setOcupadoTM(false);
         }
-        else if(materia.getTurno() == "TN"){
+        else if(materia.getTurno().equals("TN")){
             aula.setOcupadoTN(false);
         }
         //guardo el aula

@@ -37,9 +37,11 @@ public class Aula {
     @Column(name="estufa")
     private boolean estufa;
 
+    //ESTOS ATRIBUTOS NO SON NECESARIOS IMPLEMENTANDO LA NUEVA LOGICA
     @Column(name="ocupado_TM")
     private boolean ocupadoTM;
 
+    //ESTOS ATRIBUTOS NO SON NECESARIOS IMPLEMENTANDO LA NUEVA LOGICA
     @Column(name="ocupado_TN")
     private boolean ocupadoTN;
 
