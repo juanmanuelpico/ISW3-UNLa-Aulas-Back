@@ -5,13 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.equipo6.aulasUnla.dtos.request.MateriaAsignarDocenteDTO;
 import com.equipo6.aulasUnla.dtos.request.MateriaAsignarUsuariosDTO;
@@ -131,9 +125,9 @@ public class MateriaController {
     }
 
     @GetMapping("/name/{nombre}")
-    public ResponseEntity<Object> obtenerMateriaPorNombre(@PathVariable("nombre") String nombre) {
+    public ResponseEntity<Object> obtenerMateriaPorNombre(@PathVariable("nombre") String nombre, @RequestParam String turno) {
         try {
-            MateriaDetalladaDTOResponse detalladaDTOResponse = materiaService.tranformarAMateriaDetalladaDTO(materiaService.obtenerMateria(nombre));
+            MateriaDetalladaDTOResponse detalladaDTOResponse = materiaService.tranformarAMateriaDetalladaDTO(materiaService.obtenerMateria(nombre, turno));
             return ResponseEntity.status(HttpStatus.OK).body(detalladaDTOResponse);
         } catch (Exception e) {
             return new ResponseEntity<>(new Mensaje(e.getMessage()), HttpStatus.BAD_REQUEST);
